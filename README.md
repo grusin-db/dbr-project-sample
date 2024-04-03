@@ -16,3 +16,11 @@ Features:
 CLI Commands:
 
 - `dbrdemo-foobar` - run with `--help` to see what advanced features it has!
+
+Project Structure:
+
+- `dbdemos` is the package folder, all it's contents will be put into wheel file when `make dist` is ran
+- `tests` is the folder where unit tests are placed, there are 3 types of tests:
+  - `pytest` simple tests just showing that pytest is working fine
+  - `sdk` simple tests showing that SDK's `WorspaceClient` is working fine
+  - `etl` simple tests checking some spark elt logic, it verifies that db connect is working as expected
