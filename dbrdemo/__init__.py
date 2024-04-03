@@ -17,6 +17,7 @@ import datetime
 from pyspark.dbutils import DBUtils
 from pyspark.sql import SparkSession
 
+
 def _get_spark_seession() -> SparkSession:
     try:
         # if running in real databricks

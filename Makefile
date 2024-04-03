@@ -24,7 +24,7 @@ lint:
 	pycodestyle dbrdemo
 	autoflake --check-diff --quiet --recursive dbrdemo
 
-test: local
+test: install
 	COVERAGE_FILE=.coverage pytest -n8 --exitfirst -vv --cov=dbrdemo --cov-report html:coverage/html/ --cov-report xml:coverage/xml/xml.xml --junitxml=.junittest.xml tests/*
 	- open coverage/html/index.html
 

@@ -2,15 +2,15 @@
 
 Sample Databricks Project with unit tests and wheel file package.
 
-To install all the dependencies in local enviroment just run: `make dev`
+Features:
 
-To format the code run: `make fmt`
+- `make dev` - build development enviroment on local machine
+- `make fmt` - auto formats your code
+- `make lint` - verifies if code follows programming guidelines
+- `make dist` - builds the wheel file, auto incrementing version
+- `make test` - runs unit tests
+- `make install` - install the package and cli commands
 
-To check if code obeys python best practices: `make lint`
+CLI Commands:
 
-To run tests: `make test`
-
-To build the wheel package `make dist`
-
-To install wheel package `make install`
-
+- `dbrdemo-foobar` - run with `--help` to see what advanced features it has!

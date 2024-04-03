@@ -1,4 +1,5 @@
 import logging
+
 logging.getLogger('urllib3.connectionpool').setLevel('INFO')
 
 import dbrdemo
