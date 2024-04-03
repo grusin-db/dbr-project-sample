@@ -4,7 +4,7 @@ Sample Databricks Project with unit tests and wheel file package.
 
 Features:
 
-- `make dev` - build development enviroment on local machine
+- `make dev` - builds development enviroment on local machine
 - `make fmt` - auto formats your code
 - `make lint` - verifies if code follows programming guidelines
 - `make dist` - builds the wheel file, auto incrementing version
