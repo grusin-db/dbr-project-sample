@@ -1,8 +1,8 @@
-# Databricks VSCode Project Sample/Demo
+# Databricks VS Code Project Sample/Demo
 
 Sample Databricks Project with unit tests and wheel file package.
 
-Make sure you install [Databricks VScode extension](https://marketplace.visualstudio.com/items?itemName=databricks.databricks) first, and connect to a cluster!
+Make sure you install [Databricks VS Code extension](https://marketplace.visualstudio.com/items?itemName=databricks.databricks) first, and connect to a cluster!
 
 Features:
 
