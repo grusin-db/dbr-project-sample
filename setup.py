@@ -12,15 +12,15 @@ setup(name="dbrdemo",
       version=version_data['__version__'],
       packages=find_packages(exclude=["tests", "*tests.*", "*tests"]),
       python_requires=">=3.10",
-      install_requires=["databricks-labs-blueprint==0.4.3", "databricks-sdk==0.23.0"],
+      install_requires=["databricks-labs-blueprint==0.4.3", "databricks-sdk==0.29.0"],
       entry_points = {
         'console_scripts': [
             'dbrdemo-foobar=dbrdemo.cli:cli_foobar'
         ]
       },
-      extras_require={"dev": ["databricks-connect==14.3.1", "pytest==7.4.3", "pytest-cov==4.1.0", "pytest-xdist==3.5.0", "pytest-mock",
+      extras_require={"dev": ["databricks-connect==14.3.2", "pytest==7.4.3", "pytest-cov==4.1.0", "pytest-xdist==3.5.0", "pytest-mock",
                               "yapf", "pycodestyle", "autoflake", "isort", "wheel",
-                              "pytest-approvaltests==0.2.4", "pylint==3.0.3", "tabulate==0.9.0" ]
+                              "pytest-approvaltests==0.2.4", "pylint==3.0.3", "tabulate==0.9.0", "pyright==1.1.370" ]
                         },
       author="Grzegorz Rusin",
       author_email="grzegorz.rusin@databricks.com",
