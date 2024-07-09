@@ -19,6 +19,7 @@ CLI Features:
 CLI Commands:
 
 - `dbrdemo-foobar` - run with `--help` to see what advanced features it has!
+  - for example `dbrdemo-foobar --foo test --bar 123` -- will establish spark session, and run some basic query
 
 Project Structure:
 
