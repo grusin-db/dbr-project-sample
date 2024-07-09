@@ -4,9 +4,11 @@ Sample Databricks Project with unit tests and wheel file package.
 
 Make sure you install [Databricks VS Code extension](https://marketplace.visualstudio.com/items?itemName=databricks.databricks) first, and connect to a cluster!
 
-This project relies of [Databricks Connect](https://docs.databricks.com/en/dev-tools/databricks-connect/python/index.html) to estabilish connection with databricks clusters. For purspoe of this demo, this codebase assumes that you are running 14.3 LTS (latests as of now) databricks runtime.
+This project relies of [Databricks Connect](https://docs.databricks.com/en/dev-tools/databricks-connect/python/index.html) to estabilish connection with databricks clusters.
 
-CLI Features:
+For purspoe of this demo, this codebase assumes that you are running 14.3 LTS (latests as of now) Databricks Runtime. Python 3.10 or newer. Preferably make sure you VM matches setup of VM of [Databricks Runtime 14.3 LTS](https://docs.databricks.com/en/release-notes/runtime/14.3lts.html#system-environment)
+
+CLI Features (you should run them in order of listing for first time setup to setup everything):
 
 - `make dev` - builds development enviroment on local machine
 - `make fmt` - auto formats your code

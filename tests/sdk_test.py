@@ -18,6 +18,6 @@ def test_get_catalogs():
 def test_upload_yaml_config_file():
     w = WorkspaceClient()
 
-    f = io.StringIO("some: initial text data")
+    f = io.StringIO("some: initial text data 2222")
 
     w.workspace.upload(path='/Shared/test3.yaml', content=f, format=ImportFormat.AUTO, overwrite=True)
