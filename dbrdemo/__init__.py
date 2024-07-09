@@ -1,7 +1,9 @@
+# setup nice logger
 from databricks.labs.blueprint.logger import install_logger
 
 install_logger()
 
+# setup logger
 import logging
 
 logging.getLogger().setLevel(level=logging.CRITICAL)
@@ -14,13 +16,13 @@ logger.info(f"Using dbrdemo version: {__version__}")
 
 import datetime
 
-from pyspark.dbutils import DBUtils
+from databricks.sdk import WorkspaceClient
 from pyspark.sql import SparkSession
 
 
 def _get_spark_seession() -> SparkSession:
     try:
-        # if running in real databricks
+        # if running in real databricks this will return spark
         from pyspark.sql import SparkSession
         spark = SparkSession.getActiveSession()
     except: # NOQA
@@ -29,15 +31,7 @@ def _get_spark_seession() -> SparkSession:
     if not spark:
         logger.debug("Trying to aquire vscode/pytest databricks connect session...")
         from databricks.connect.session import DatabricksSession
-        spark_unsupported_tz_map = {"CEST": "+01:00"}
-
         spark = DatabricksSession.builder.getOrCreate()
-        now = datetime.datetime.now()
-        local_now = now.astimezone()
-        local_tz = local_now.tzinfo
-        local_tzname = local_tz.tzname(local_now)
-        local_tzname = spark_unsupported_tz_map.get(local_tzname) or local_tzname
-        spark.conf.set('spark.sql.session.timeZone', local_tzname)
 
         # TODO: use ascii art to make this personalized just for your code!!! :)
         #       Open source tools for generating ascii art: https://itsfoss.com/ascii-art-linux-terminal/
@@ -51,10 +45,14 @@ def _get_spark_seession() -> SparkSession:
         logger.warning("   )_(   (_______/\\_______)   )_(     |/     \\|(_______)(______/ (_______/")
 
     spark.conf.set('spark.sql.legacy.timeParserPolicy', 'CORRECTED')
-    spark.conf.set('spark.sql.legacy.json.allowEmptyString.enabled', 'true')
 
     return spark
 
 
+def _get_dbutils():
+    w = WorkspaceClient()
+    return w.dbutils
+
+
 spark = _get_spark_seession()
-dbutils = DBUtils(spark)
+dbutils = _get_dbutils()
