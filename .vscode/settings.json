@@ -5,6 +5,8 @@
     "jupyter.interactiveWindow.cellMarker.default": "# COMMAND ----------",
     "python.testing.pytestArgs": [
         "tests",
+        "--approvaltests-add-reporter=\"code\"",
+        "--approvaltests-add-reporter-args=\"--diff\"",
         "-svv",
         "--log-cli-level=WARNING"
     ],
