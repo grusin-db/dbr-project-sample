@@ -1,0 +1,12 @@
+{
+    "include": [
+        "dbdemo/**"
+    ],
+
+    "exclude": [
+        "**/__pycache__"
+    ],
+
+    "ignore": [
+    ]
+}

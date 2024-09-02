@@ -18,7 +18,7 @@ setup(name="dbrdemo",
             'dbrdemo-foobar=dbrdemo.cli:cli_foobar'
         ]
       },
-      extras_require={"dev": ["databricks-connect==14.3.2", "pytest==7.4.3", "pytest-cov==4.1.0", "pytest-xdist==3.5.0", "pytest-mock",
+      extras_require={"dev": ["databricks-connect==14.3.2", "pytest==7.4.3", "pytest-cov==4.1.0", "pytest-xdist==3.5.0", "pytest-mock", "sh==2.0.7",
                               "yapf", "pycodestyle", "autoflake", "isort", "wheel",
                               "pytest-approvaltests==0.2.4", "pylint==3.0.3", "tabulate==0.9.0", "pyright==1.1.370" ]
                         },
