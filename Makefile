@@ -23,8 +23,6 @@ fmt:
 lint:
 	pycodestyle dbrdemo
 	autoflake --check-diff --quiet --recursive dbrdemo
-
-lint2: lint
 	pyright dbrdemo
 
 test: install

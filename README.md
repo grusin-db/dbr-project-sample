@@ -12,8 +12,7 @@ CLI Features (you should run them in order of listing for first time setup to se
 
 - `make dev` - builds development enviroment on local machine
 - `make fmt` - auto formats your code
-- `make lint` - verifies if code follows programming guidelines
-- `make lint2` - runs `make lint` and also does static type code checking using `pyright`
+- `make lint` - verifies if code follows programming guidelines, performs static type checking using `pyright`
 - `make dist` - builds the wheel file, auto incrementing version
 - `make test` - runs unit tests and display test coverage report in your browser
 - `make install` - install the package and cli commands
@@ -32,3 +31,8 @@ Project Structure:
   - `etl` simple tests checking some spark elt logic, it verifies that db connect is working as expected
   
 Windows users might want to use WSL2 and setup VSCode to use WS2 image of your favorite linux distribution.
+
+Static Type checking:
+Pyright is used to perform static type checking, in case codebase cannot be imediatelly fixed to pass all the checks, the files to ignore can be put into the `pyrightconfig.json`. Typical workflow for making existing codebase pass all tests involves putting all files in ignore list, and then one by one fixing the code and removing it from the ignore list to achive 100% type checking.
+
+

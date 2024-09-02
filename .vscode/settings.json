@@ -11,5 +11,6 @@
         "--log-cli-level=WARNING"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "python.analysis.typeCheckingMode": "standard",
 }
