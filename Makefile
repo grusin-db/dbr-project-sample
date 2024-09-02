@@ -29,7 +29,7 @@ test: install
 	COVERAGE_FILE=.coverage pytest -n8 --exitfirst -vv --cov=dbrdemo --cov-report html:coverage/html/ --cov-report xml:coverage/xml/xml.xml --junitxml=.junittest.xml tests/*
 	- open coverage/html/index.html
 
-dist:
+dist: clean
 	python update_package_version.py --env $(ENV_NAME) --daily-build-no $(DAILY_BUILD_NUMBER)
 	python setup.py bdist_wheel sdist
 
