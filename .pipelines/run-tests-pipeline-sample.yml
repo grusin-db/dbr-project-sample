@@ -42,6 +42,10 @@ stages:
       displayName: 'Install dependencies'
 
     - script: |
+        make lint
+      displayName: 'Code Quality Checks'
+
+    - script: |
         make test
       displayName: 'Test package'
       env:
