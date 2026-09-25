@@ -8,10 +8,7 @@ description: >-
 
 # Use dbrdemo
 
-Use this skill when Genie Code helps a user call `dbrdemo`. Compatible coding
-agents can follow the same instructions.
-
-## Create foo/bar data
+Create a one-row DataFrame:
 
 ```python
 from dbrdemo import create_foobar
@@ -20,20 +17,18 @@ df = create_foobar("hello", "world")
 display(df)
 ```
 
-The result has one row and two string columns: `foo` and `bar`.
-
-## Write to a table
+Append a row to an existing catalog and schema:
 
 ```python
 from dbrdemo import write_foobar
 
-write_foobar("main.demo.foobar", "hello", "world")
+write_foobar("catalog.schema.foobar", "hello", "world")
 ```
 
-This appends the row to the target table. The catalog and schema must exist.
-
-The CLI calls the same `write_foobar` function:
+The equivalent CLI is:
 
 ```bash
-dbrdemo-foobar --table main.demo.foobar --foo hello --bar world
+dbrdemo-foobar --table catalog.schema.foobar --foo hello --bar world
 ```
+
+Run `dbrdemo-docs user/foobar.md` for the complete API guide.

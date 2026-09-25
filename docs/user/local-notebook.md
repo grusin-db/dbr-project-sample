@@ -1,22 +1,13 @@
 # Local VS Code notebook
 
-Use [`dbrdemo-example.ipynb`](../../dbrdemo-example.ipynb) to call the library
-from a local Jupyter kernel through Databricks Connect.
+In a source checkout, use `dbrdemo-example.ipynb` to call the library from a
+local Jupyter kernel through Databricks Connect.
 
 ## Prerequisites
 
-1. Install version 2.17 or newer of the
-   [Databricks VS Code extension](https://marketplace.visualstudio.com/items?itemName=databricks.databricks).
-2. Authenticate in the extension and select serverless or classic compute.
-3. Install the repository shell integration once:
-
-   ```bash
-   make direnv
-   ```
-
-4. Open a new terminal and run `direnv allow && make dev`.
-5. Open `dbrdemo-example.ipynb`.
-6. Select `.venv/bin/python` as the notebook kernel.
+1. Complete [Developer setup](../developer/getting-started.md).
+2. Open `dbrdemo-example.ipynb`.
+3. Select `.venv/bin/python` as the notebook kernel.
 
 ## What the notebook demonstrates
 

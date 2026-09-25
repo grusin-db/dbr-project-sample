@@ -9,7 +9,7 @@ VOLUME ?=
 # Targets: make direnv, make ug, make install_claudecode / install_codex / ...
 include Makefile.ug.mk
 
-.PHONY: dev dev15 dev16 dev17 dev18 prepare_resources _dev_install install uninstall \
+.PHONY: dev dev16 dev17 dev18 prepare_resources _dev_install install uninstall \
 	fmt lint flint dist release test clean \
 	install_skills install_user_skills install_workspace_skills
 
@@ -28,7 +28,6 @@ _dev_install: prepare_resources
 	uv pip install '.[$(EXTRA)]'
 
 dev: dev17
-dev15: ; $(MAKE) _dev_install EXTRA=dev15
 dev16: ; $(MAKE) _dev_install EXTRA=dev16
 dev17: ; $(MAKE) _dev_install EXTRA=dev17
 dev18: ; $(MAKE) _dev_install EXTRA=dev18
@@ -66,7 +65,6 @@ release:
 
 test: install
 	COVERAGE_FILE=.coverage $(VENV_DIR)/bin/pytest -n8 --exitfirst -vv --cov=dbrdemo --cov-report term-missing --cov-report html:coverage/html/ --cov-report xml:coverage/xml/xml.xml --junitxml=.junittest.xml tests/*
-	- open coverage/html/index.html
 
 # Skills: local agents (~/.agents/skills), current Databricks user, or workspace-wide.
 install_skills: install
