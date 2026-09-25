@@ -1,1 +1,0 @@
-databricks-connect==15.4.26

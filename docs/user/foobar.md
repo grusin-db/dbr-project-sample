@@ -21,7 +21,7 @@ The result has two string columns: `foo` and `bar`.
 ```python
 from dbrdemo import write_foobar
 
-write_foobar("main.demo.foobar", "hello", "world")
+write_foobar("catalog.schema.foobar", "hello", "world")
 ```
 
 The catalog and schema must exist. The table is created if needed; subsequent
@@ -30,5 +30,5 @@ calls append rows.
 The CLI calls the same `write_foobar` function:
 
 ```bash
-dbrdemo-foobar --table main.demo.foobar --foo hello --bar world
+dbrdemo-foobar --table catalog.schema.foobar --foo hello --bar world
 ```

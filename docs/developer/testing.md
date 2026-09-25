@@ -1,17 +1,13 @@
 # Testing
 
-## Setup
+## Run the tests
 
 ```bash
-make direnv    # install direnv and its shell hook
-direnv allow   # load the extension-selected workspace and compute
-make dev       # create the Python 3.12 development environment
 make test      # build, install, and test the wheel
 ```
 
-Environment flow: VS Code extension → `.databricks/.databricks.env` → `direnv`
-→ Make → pytest. Databricks Connect and the SDK therefore use the workspace and
-compute selected in the extension. See [Developer setup](getting-started.md).
+Complete [Developer setup](getting-started.md) first. Databricks Connect and
+the SDK use the workspace and compute selected in the extension.
 
 ## What `make test` does
 

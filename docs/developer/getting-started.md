@@ -71,7 +71,24 @@ direnv reload
 
 Make targets use `.venv` directly; activation is not required.
 
-Open [`dbrdemo-example.ipynb`](../../dbrdemo-example.ipynb) to run the library
-from a local VS Code notebook through Databricks Connect.
+## Development commands
+
+`make dev` currently selects Connect 17. Use `make dev16`, `make dev17`, or
+`make dev18` when testing against a specific runtime generation; each target
+recreates `.venv`.
+
+```bash
+make fmt       # fix lint issues and format code
+make lint      # check formatting, lint, and types
+make flint     # run fmt, then lint
+make test      # build, install, and test the wheel
+```
+
+[Ruff](https://docs.astral.sh/ruff/) and
+[Pyright](https://microsoft.github.io/pyright/) configuration live in
+`pyproject.toml`. See [Testing](testing.md) for test details.
+
+In a source checkout, open `dbrdemo-example.ipynb` to run the library from a
+local VS Code notebook through Databricks Connect.
 
 Windows users should use [WSL2](https://learn.microsoft.com/windows/wsl/install).

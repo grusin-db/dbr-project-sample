@@ -45,7 +45,6 @@ version = { attr = "dbrdemo.version.__version__" }
 
 [tool.setuptools.dynamic.optional-dependencies]
 dev = { file = ["requirements/dev-common.txt", "requirements/dev17.txt"] }
-dev15 = { file = ["requirements/dev-common.txt", "requirements/dev15.txt"] }
 dev16 = { file = ["requirements/dev-common.txt", "requirements/dev16.txt"] }
 dev17 = { file = ["requirements/dev-common.txt", "requirements/dev17.txt"] }
 dev18 = { file = ["requirements/dev-common.txt", "requirements/dev18.txt"] }
