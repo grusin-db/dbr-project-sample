@@ -165,14 +165,14 @@ cython_debug/
 #.idea/
 
 .databricks
-/databricks.yml
-/.vscode/
+databricks.yml
+.vscode/
 
 # uv-managed Python pin and repo-local uv tools (ug)
 .python-version
 .uvtools/
 
 # Generated wheel resources (copied from top-level sources by make dist)
-/dbrdemo/resources/docs/
-/dbrdemo/resources/skills/
+dbrdemo/resources/docs/
+dbrdemo/resources/skills/
 
