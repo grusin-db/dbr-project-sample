@@ -49,7 +49,7 @@ dist:
 	@uv build --wheel --quiet
 
 test: install
-	COVERAGE_FILE=.coverage $(VENV_DIR)/bin/pytest -n8 --exitfirst -vv --cov=dbrdemo --cov-report html:coverage/html/ --cov-report xml:coverage/xml/xml.xml --junitxml=.junittest.xml tests/*
+	COVERAGE_FILE=.coverage $(VENV_DIR)/bin/pytest -n8 --exitfirst -vv --cov=dbrdemo --cov-report term-missing --cov-report html:coverage/html/ --cov-report xml:coverage/xml/xml.xml --junitxml=.junittest.xml tests/*
 	- open coverage/html/index.html
 
 # Skills: local agents (~/.agents/skills), current Databricks user, or workspace-wide.

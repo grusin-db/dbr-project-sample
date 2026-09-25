@@ -1,17 +1,17 @@
-"""Test Databricks SDK access with pytester fixtures."""
+"""Test Databricks SDK access with serverless Spark fixtures."""
 
 import io
-from collections.abc import Callable
 
 from databricks.sdk import WorkspaceClient
-from databricks.sdk.service.catalog import VolumeInfo
+
+from dbrdemo import get_spark
 
 
 def test_workspace_client(ws: WorkspaceClient) -> None:
     """Verify access to the current Databricks user.
 
     Args:
-        ws: Authenticated workspace client provided by pytester.
+        ws: Authenticated workspace client provided by the shared fixture.
 
     Returns:
         None.
@@ -23,7 +23,7 @@ def test_get_catalogs(ws: WorkspaceClient) -> None:
     """Verify access to Unity Catalog.
 
     Args:
-        ws: Authenticated workspace client provided by pytester.
+        ws: Authenticated workspace client provided by the shared fixture.
 
     Returns:
         None.
@@ -33,19 +33,23 @@ def test_get_catalogs(ws: WorkspaceClient) -> None:
 
 def test_upload_file_to_volume(
     ws: WorkspaceClient,
-    make_volume: Callable[[], VolumeInfo],
+    temporary_schema: tuple[str, str],
 ) -> None:
     """Verify file upload and download through a temporary volume.
 
     Args:
-        ws: Authenticated workspace client provided by pytester.
-        make_volume: Fixture that creates and cleans up a temporary volume.
+        ws: Authenticated workspace client provided by the shared fixture.
+        temporary_schema: Catalog and temporary schema created through Spark.
 
     Returns:
         None.
     """
-    volume = make_volume()
-    file_path = f"/Volumes/{volume.catalog_name}/{volume.schema_name}/{volume.name}/test3.yaml"
+    catalog, schema = temporary_schema
+    volume = "files"
+    qualified_volume = f"`{catalog.replace('`', '``')}`.`{schema}`.`{volume}`"
+    get_spark().sql(f"CREATE VOLUME {qualified_volume}")
+
+    file_path = f"/Volumes/{catalog}/{schema}/{volume}/test3.yaml"
 
     ws.files.upload(file_path, io.BytesIO(b"some: initial text data 2222"), overwrite=True)
 

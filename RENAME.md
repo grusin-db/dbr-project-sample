@@ -6,7 +6,7 @@ substitution -- no cookiecutter, no templating engine.
 ## Strings to replace
 
 | Replace | Where | Meaning |
-|---------|-------|---------|
+| ------- | ----- | ------- |
 | `dbrdemo` | package dir, imports, `pyproject.toml`, Makefile, and tests | Python package + project name |
 | `dbrdemo-foobar` | `pyproject.toml` scripts, `dbrdemo/cli.py` | sample app CLI command |
 | `dbrdemo-install-skills`, `dbrdemo-install-user-skill`, `dbrdemo-install-workspace-skill` | `pyproject.toml` scripts | skill install CLIs |
@@ -27,8 +27,6 @@ substitution -- no cookiecutter, no templating engine.
 - Point `make dev` at the oldest DBR version your project supports; that
   Databricks Connect version also works with newer runtimes.
 - To support another DBR version, add its requirements file, optional dependency,
-  optional dependency, and Make target.
-- `tests/sdk_test.py` uses the `ws` and `make_volume` fixtures from
-  databricks-labs-pytester. `make_volume` needs Unity Catalog access (and a
-  warehouse for schema creation) in the connected workspace; the volume is
-  auto-cleaned after the test.
+  and Make target.
+- Integration tests create an isolated Unity Catalog schema through the selected
+  Databricks Connect compute and remove it after each test.

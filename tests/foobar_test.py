@@ -1,9 +1,5 @@
 """Test the sample foo/bar functionality."""
 
-from collections.abc import Callable
-
-from databricks.sdk.service.catalog import TableInfo
-
 from dbrdemo import create_foobar, get_spark, write_foobar
 
 
@@ -18,19 +14,19 @@ def test_create_foobar() -> None:
     assert row.asDict() == {"foo": "hello", "bar": "world"}
 
 
-def test_write_foobar(make_table: Callable[..., TableInfo]) -> None:
+def test_write_foobar(temporary_schema: tuple[str, str]) -> None:
     """Verify that a foo/bar row is appended to a Databricks table.
 
     Args:
-        make_table: Fixture that creates and cleans up a temporary table.
+        temporary_schema: Catalog and temporary schema created through Spark.
 
     Returns:
         None.
     """
-    table = make_table(columns=[("foo", "STRING"), ("bar", "STRING")])
-    assert table.full_name
+    catalog, schema = temporary_schema
+    table_name = f"`{catalog.replace('`', '``')}`.`{schema}`.`foobar`"
 
-    write_foobar(table.full_name, "hello", "world")
+    write_foobar(table_name, "hello", "world")
 
-    row = get_spark().table(table.full_name).first()
+    row = get_spark().table(table_name).first()
     assert row.asDict() == {"foo": "hello", "bar": "world"}
