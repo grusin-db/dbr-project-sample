@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dbrdemo"
+description = "Databricks starter/sample project with uv, ruff, pyright, ug, and agent skills"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Grzegorz Rusin", email = "grzegorz.rusin@databricks.com" },
+]
+keywords = ["databricks", "starter", "sample", "uv", "skills"]
+classifiers = ["Operating System :: OS Independent"]
+dynamic = ["version", "optional-dependencies"]
+dependencies = [
+    "databricks-labs-blueprint>=0.4.3",
+    "databricks-sdk>=0.30",
+]
+
+[project.scripts]
+dbrdemo-foobar = "dbrdemo.cli:cli_foobar"
+dbrdemo-install-skills = "dbrdemo.cli:cli_install_skills"
+dbrdemo-install-user-skill = "dbrdemo.cli:cli_install_user_skill"
+dbrdemo-install-workspace-skill = "dbrdemo.cli:cli_install_workspace_skill"
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.packages.find]
+include = ["dbrdemo*"]
+exclude = ["tests", "tests.*"]
+
+[tool.setuptools.package-data]
+dbrdemo = ["skills/**/*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "dbrdemo.version.__version__" }
+
+[tool.setuptools.dynamic.optional-dependencies]
+dev = { file = ["requirements/dev-common.txt", "requirements/dev17.txt"] }
+dev15 = { file = ["requirements/dev-common.txt", "requirements/dev15.txt"] }
+dev16 = { file = ["requirements/dev-common.txt", "requirements/dev16.txt"] }
+dev17 = { file = ["requirements/dev-common.txt", "requirements/dev17.txt"] }
+dev18 = { file = ["requirements/dev-common.txt", "requirements/dev18.txt"] }
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["*.ipynb", "build", "dist"]
+
+[tool.ruff.lint]
+select = ["E4", "E9", "F401", "I"]
+ignore = ["E402"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/__init__.py" = ["F401"]
+
+[tool.ruff.format]
+quote-style = "preserve"
+
+[tool.pyright]
+include = ["dbrdemo"]
+exclude = ["**/__pycache__"]
+venvPath = "."
+venv = ".venv"
+pythonVersion = "3.12"

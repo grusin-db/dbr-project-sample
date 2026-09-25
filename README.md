@@ -1,61 +1,146 @@
-# Databricks VS Code Project Sample/Demo
+# Databricks Starter / Sample Project
 
-Sample Databricks Project with unit tests and wheel file package.
+A clone-and-go Databricks project with the good stuff wired up: `uv`, `ruff`,
+`pyright`, per-runtime dependency sets, the Unity Gateway coding-agent CLI
+(`ug`), and Agent Skills. Fork it, rename a few strings (see [RENAME.md](RENAME.md)),
+and you have a well-structured project.
 
-Make sure you install [Databricks VS Code extension](https://marketplace.visualstudio.com/items?itemName=databricks.databricks) first, and connect to a cluster!
+Uses [Databricks Connect](https://docs.databricks.com/en/dev-tools/databricks-connect/python/index.html)
+for local execution against Databricks compute.
 
-This project relies of [Databricks Connect](https://docs.databricks.com/en/dev-tools/databricks-connect/python/index.html) to establish connection with databricks clusters.
+## First-time setup
 
-For purpose of this demo, this codebase assumes that you are running 14.3 LTS (latests as of now) Databricks Runtime. Python 3.10 or newer. Preferably make sure you VM matches setup of VM of [Databricks Runtime 14.3 LTS](https://docs.databricks.com/en/release-notes/runtime/14.3lts.html#system-environment)
+1. Install version 2.17 or newer of the
+   [Databricks VS Code extension](https://marketplace.visualstudio.com/items?itemName=databricks.databricks).
+2. Authenticate through the extension. When prompted, choose a clear profile
+   name for the workspace.
+3. Select serverless or classic compute in the extension.
+4. Build and verify the project:
 
-## CLI Features (you should run them in order of listing for first time setup to setup everything):
+```bash
+direnv allow             # loads .databricks/.databricks.env automatically
+make dev                 # uv venv + Python 3.12 + default DBR dependencies
+make flint               # format + lint + type-check
+make install_skills      # copy sample skills to ~/.agents/skills
 
-- `make dev` - builds development environment on local machine
-- `make fmt` - auto formats your code
-- `make lint` - verifies if code follows programming guidelines, performs static type checking using `pyright`
-- `make dist` - builds the wheel file, auto incrementing version
-- `make test` - runs unit tests and display test coverage report in your browser
-- `make install` - install the package and cli commands
+# optional: coding agents through Unity Gateway
+make ug
+make install_cursorcli && ug cursor
+```
 
-## CLI Commands:
+The extension writes the selected profile and compute to the gitignored
+`.databricks/.databricks.env`. The committed `.envrc` loads it automatically.
 
-- `dbrdemo-foobar` - run with `--help` to see what advanced features it has!
-  - for example `dbrdemo-foobar --foo test --bar 123` -- will establish spark session, and run some basic query
+Choose a Databricks Runtime with `make dev15`, `dev16`, `dev17`, or `dev18`.
+There is no lockfile -- pick **one** `make devN` at a time.
 
-## Project Structure:
+## Make targets
 
-- `dbdemos` is the package folder, all it's contents will be put into wheel file when `make dist` is ran
-- `tests` is the folder where unit tests are placed, there are 3 types of tests:
-  - `pytest` simple tests just showing that pytest is working fine
-  - `sdk` simple tests showing that SDK's `WorspaceClient` is working fine
-  - `etl` simple tests checking some spark elt logic, it verifies that db connect is working as expected
-  
-Windows users might want to use WSL2 and setup VSCode to use WS2 image of your favorite linux distribution.
+### Development
 
-## Static Type checking:
-Pyright is used to perform static type checking, in case codebase cannot be imediatelly fixed to pass all the checks, the files to ignore can be put into the `pyrightconfig.json`. Typical workflow for making existing codebase pass all tests involves putting all files in ignore list, and then one by one fixing the code and removing it from the ignore list to achive 100% type checking.
+- `make dev` - build the default development environment
+- `make dev15` / `dev16` / `dev17` / `dev18` - build for a specific DBR version
+- `make fmt` - auto-format (ruff; quote style preserved)
+- `make lint` - ruff check + `ruff format --check` + `pyright`
+- `make flint` - `fmt` then `lint`
+- `make test` - run unit tests with coverage
 
+### Package
+
+- `make dist` - build the wheel
+- `make install` - install the package and its CLIs
+
+### Agent Skills
+
+- `make install_skills` - install locally
+- `make install_user_skill` - install for the current Databricks user
+- `make install_workspace_skill` - install for all workspace users
+
+### Coding agents
+
+- `make ug` - install the Unity Gateway CLI
+- `make install_claudecode`, `make install_codex`, `make install_cursorcli`,
+  `make install_gemini`, `make install_opencode`, `make install_copilot`, or
+  `make install_pi` - install a coding agent for Unity Gateway
+
+## CLI commands
+
+- `dbrdemo-foobar` - sample app; e.g. `dbrdemo-foobar --foo test --bar 123`
+- `dbrdemo-install-skills` / `dbrdemo-install-user-skill` / `dbrdemo-install-workspace-skill`
+
+## Project structure
+
+- `dbrdemo/` - the package (goes into the wheel on `make dist`)
+  - `skills/dbrdemo-*/SKILL.md` - bundled Agent Skills
+  - `skills.py` - minimal skill installer (`SKILL_DIR_PREFIX` is the rename knob)
+- `tests/` - unit tests, three flavors:
+  - `pytest` - plain pytest sanity checks
+  - `sdk` - `WorkspaceClient` checks using the `ws` and `make_volume` fixtures
+    from [databricks-labs-pytester](https://github.com/databrickslabs/pytester);
+    `test_upload_file_to_volume` writes to a temporary UC volume that is cleaned up
+  - `etl` - Spark ETL logic via Databricks Connect
+- `Makefile.ug.mk` - portable Unity Gateway CLI + agent installs (copy into other repos)
+
+Windows users: use WSL2.
+
+## Coding agents (`ug`)
+
+`ug` is the Unity Gateway CLI; it routes coding agents (Claude Code, Codex,
+Gemini, OpenCode, Copilot, Pi, Cursor) through Databricks. It installs into
+`.uvtools` (isolated from `.venv`). Launch with `ug claude`, `ug cursor`, etc.
+The older `ucode` command is superseded by `ug`. See
+[the ug docs](https://docs.databricks.com/aws/en/ai-gateway/coding-agent-ug-cli).
+
+## Skills
+
+Agent Skills give Genie Code and local coding agents project-specific
+instructions that are not available from the source code alone. They are
+optional for the application runtime, but keep agent answers consistent with
+the project's workflow.
+
+This project includes `dbrdemo-getting-started`. It teaches agents how to:
+
+- configure Databricks authentication and compute
+- select a DBR dependency set
+- format, lint, test, and package the project
+- install skills locally or in Databricks
+
+Example Genie Code prompts:
+
+- “How do I set up this project?”
+- “Prepare this project for DBR 18.”
+- “Format, lint, and type-check my changes.”
+- “Build the wheel.”
+- “Install this project’s skills for my Databricks user.”
+
+Skills are stored as `dbrdemo-*` folders under `dbrdemo/skills/`. Replace the
+sample guidance with your project-specific workflow after cloning.
+
+| Target | Installs to |
+|--------|-------------|
+| `make install_skills` | `~/.agents/skills/` (local: Cursor, VS Code, Copilot CLI, ...) |
+| `make install_user_skill` | Databricks `/Users/<you>/.assistant/skills` |
+| `make install_workspace_skill` | Databricks `/Workspace/.assistant/skills` (all users) |
+
+## Type checking
+
+`pyright` runs in `make lint`. Configuration lives in `pyproject.toml` under
+`[tool.pyright]`.
 
 ## Azure DevOps
-This project provides a sample YML template `.pipelines/run-tests-pipeline-sample.yml` for an Azure DevOps pipeline that can be used to trigger the tests from an CICD interface.
 
-This requires:
+`.pipelines/run-tests-pipeline-sample.yml` is a minimal pipeline that runs
+`make dev` -> `make lint` -> `make test`. It requires:
 
-1. A Service Connection which is allowed access on the Databricks workspace (Contributor Role) where you want to run the tests.
-```
-variables:
-- name: ConnectionName
-  value: "Non-Prod Deployment SPN"
-```
- 2. A variable group containing the ClusterID & Databricks Host URL.
-```
-env:
-	DATABRICKS_CLUSTER_ID: $(databricksCluster)
-	DATABRICKS_HOST: $(databricksHost)
-```
- We recommend using a variable group for management and referencing the variable names here, instead of hardcoding the cluster & host within the YML. 
-
-### Functionality
-The pipeline is kept minimalistic to allow for further customization.
-
-It will fetch the required SPN credentials into a variable (which is required for Databricks-Connect), install the required package dependencies, run the test & publish the results.
+1. A Service Connection with access to the Databricks workspace:
+   ```yaml
+   variables:
+   - name: ConnectionName
+     value: "Non-Prod Deployment SPN"
+   ```
+2. A variable group with the cluster ID and host:
+   ```yaml
+   env:
+     DATABRICKS_CLUSTER_ID: $(databricksCluster)
+     DATABRICKS_HOST: $(databricksHost)
+   ```

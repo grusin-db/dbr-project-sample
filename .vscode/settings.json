@@ -1,12 +1,10 @@
 {
-    "python.envFile": "${workspaceFolder}/.databricks/.databricks.env",
+    "python.envFile": "${workspaceRoot}/.env",
     "databricks.python.envFile": "${workspaceFolder}/.env",
     "jupyter.interactiveWindow.cellMarker.codeRegex": "^# COMMAND ----------|^# Databricks notebook source|^(#\\s*%%|#\\s*\\<codecell\\>|#\\s*In\\[\\d*?\\]|#\\s*In\\[ \\])",
     "jupyter.interactiveWindow.cellMarker.default": "# COMMAND ----------",
     "python.testing.pytestArgs": [
         "tests",
-        "--approvaltests-add-reporter=\"code\"",
-        "--approvaltests-add-reporter-args=\"--diff\"",
         "-svv",
         "--log-cli-level=WARNING"
     ],

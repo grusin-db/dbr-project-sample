@@ -19,9 +19,9 @@ stages:
     displayName: 'Run tests'
     steps:
     - task: UsePythonVersion@0
-      displayName: 'Use Python >=3.10'
+      displayName: 'Use Python 3.12'
       inputs:
-        versionSpec: '3.10'
+        versionSpec: '3.12'
 
     - task: AzureCLI@2
       displayName: 'Fetch SPN credentials for Azure/Databricks connection'
@@ -37,7 +37,7 @@ stages:
           echo "##vso[task.setvariable variable=ARM_TENANT_ID]$tenantId"
 
     - script: |
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip uv
         make dev
       displayName: 'Install dependencies'
 

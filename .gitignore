@@ -165,3 +165,8 @@ cython_debug/
 #.idea/
 
 .databricks
+
+# uv-managed Python pin and repo-local uv tools (ug)
+.python-version
+.uvtools/
+

@@ -1,0 +1,19 @@
+# This is a Declarative Automation Bundle definition for dbr-project-sample-1.
+# The Databricks extension requires databricks.yml configuration file.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+
+bundle:
+  name: dbr-project-sample-1
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://fevm-serverless-stable-m28vj0.cloud.databricks.com
+
+  ## Optionally, there could be 'staging' or 'prod' targets here.
+  #
+  # prod:
+  #   workspace:
+  #     host: https://fevm-serverless-stable-m28vj0.cloud.databricks.com
