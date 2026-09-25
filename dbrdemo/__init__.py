@@ -11,6 +11,7 @@ logging.getLogger().setLevel(level=logging.CRITICAL)
 logger = logging.getLogger('dbrdemo')
 logger.setLevel(logging.DEBUG)
 
+from .foobar import create_foobar, write_foobar
 from .session import get_dbutils, get_spark
 from .version import __version__
 

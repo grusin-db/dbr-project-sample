@@ -170,3 +170,7 @@ cython_debug/
 .python-version
 .uvtools/
 
+# Generated wheel resources (copied from top-level sources by make dist)
+/dbrdemo/resources/docs/
+/dbrdemo/resources/skills/
+

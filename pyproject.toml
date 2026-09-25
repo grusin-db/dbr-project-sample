@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "dbrdemo"
 description = "Databricks starter/sample project with uv, ruff, pyright, ug, and agent skills"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12,<3.13"
 authors = [
     { name = "Grzegorz Rusin", email = "grzegorz.rusin@databricks.com" },
 ]
@@ -20,6 +20,7 @@ dependencies = [
 
 [project.scripts]
 dbrdemo-foobar = "dbrdemo.cli:cli_foobar"
+dbrdemo-docs = "dbrdemo.cli:cli_docs"
 dbrdemo-install-skills = "dbrdemo.cli:cli_install_skills"
 dbrdemo-install-user-skill = "dbrdemo.cli:cli_install_user_skill"
 dbrdemo-install-workspace-skill = "dbrdemo.cli:cli_install_workspace_skill"
@@ -32,7 +33,7 @@ include = ["dbrdemo*"]
 exclude = ["tests", "tests.*"]
 
 [tool.setuptools.package-data]
-dbrdemo = ["skills/**/*"]
+dbrdemo = ["resources/docs/**/*.md", "resources/skills/**/*"]
 
 [tool.setuptools.dynamic]
 version = { attr = "dbrdemo.version.__version__" }
@@ -43,6 +44,17 @@ dev15 = { file = ["requirements/dev-common.txt", "requirements/dev15.txt"] }
 dev16 = { file = ["requirements/dev-common.txt", "requirements/dev16.txt"] }
 dev17 = { file = ["requirements/dev-common.txt", "requirements/dev17.txt"] }
 dev18 = { file = ["requirements/dev-common.txt", "requirements/dev18.txt"] }
+
+[tool.uv]
+conflicts = [
+    [
+        { extra = "dev" },
+        { extra = "dev15" },
+        { extra = "dev16" },
+        { extra = "dev17" },
+        { extra = "dev18" },
+    ],
+]
 
 [tool.ruff]
 line-length = 120

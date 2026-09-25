@@ -11,7 +11,7 @@ from databricks.sdk.service.workspace import ImportFormat
 logger = logging.getLogger(__name__)
 
 SKILL_DIR_PREFIX = "dbrdemo-"
-SKILLS_SRC = Path(__file__).parent / "skills"
+SKILLS_SRC = Path(__file__).parent / "resources" / "skills"
 LOCAL_SKILLS_PATH = Path.home() / ".agents" / "skills"
 WORKSPACE_SKILLS_PATH = "/Workspace/.assistant/skills"
 

@@ -9,12 +9,11 @@ Databricks starter/sample project. Tooling: `uv`, `ruff`, `pyright`, Unity Gatew
 # profile name, then select serverless or classic compute in the extension.
 direnv allow # loads .databricks/.databricks.env automatically
 
-make dev                 # uv venv + Python 3.12 + the `dev` extra (DBR 17)
-source .venv/bin/activate
+make dev                 # uv + Python 3.12 + locked DBR 17 environment
 ```
 
-Pick a different Databricks Runtime with `make dev15`, `dev16`, `dev17`, or `dev18`.
-There is no lockfile: choose one `make devN` at a time.
+Use `make dev` (currently `dev17`). Connect must be equal to or older than the
+runtime, so Connect 17 supports DBR 17-19. Keep `uv.lock` committed.
 
 ## Everyday commands
 
@@ -42,8 +41,10 @@ make dist     # build the wheel
 
 ## Coding agents via Unity Gateway (`ug`)
 
-`ug` routes Claude Code, Codex, Gemini, OpenCode, Copilot, Pi, and Cursor through
-Databricks Unity Gateway. It is installed into `.uvtools` (isolated from `.venv`).
+Genie Code uses the bundled Agent Skills directly in Databricks. For compatible
+external coding agents, `ug` routes Claude Code, Codex, Gemini, OpenCode,
+Copilot, Pi, and Cursor through Databricks Unity Gateway. It is installed into
+`.uvtools` (isolated from `.venv`).
 Docs: https://docs.databricks.com/aws/en/ai-gateway/coding-agent-ug-cli
 
 ```bash
@@ -61,13 +62,14 @@ Do not use the old `ucode` command; `ug` replaces it.
 
 ## Skills
 
-Skills are `dbrdemo-*` folders under `dbrdemo/skills/`. Install them:
+Skills are `dbrdemo-*` folders under `skills/`. `make dist` copies them into
+the wheel.
 
-| Target | Installs to |
-|--------|-------------|
-| `make install_skills` | `~/.agents/skills/` (Cursor, VS Code, Copilot CLI, ...) |
-| `make install_user_skill` | Databricks `/Users/<you>/.assistant/skills` |
-| `make install_workspace_skill` | Databricks `/Workspace/.assistant/skills` (all users) |
+- `make install_workspace_skill`: preferred enterprise installation for all
+  Genie Code users.
+- `make install_user_skill`: testing/troubleshooting only. User skills have
+  lower priority and cannot override same-name workspace skills.
+- `make install_skills`: compatible local coding agents.
 
 Each target removes existing `dbrdemo-*` skill folders in the target first, then
 copies the bundled ones. Other folders are left untouched.
