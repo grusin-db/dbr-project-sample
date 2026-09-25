@@ -63,7 +63,7 @@ def upload_wheel_to_volume(
     target = f"{normalize_volume_path(volume)}/{wheel_file.name}"
     client = workspace_client or WorkspaceClient()
     with wheel_file.open("rb") as contents:
-        client.files.upload(target, contents, overwrite=environment != "prod")
+        client.files.upload(target, contents, overwrite=environment == "dev")
     return target
 
 

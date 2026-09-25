@@ -102,31 +102,18 @@ from dbrdemo.documentation import read_doc
 print(read_doc("README.md"))
 ```
 
-## Build, release, and publish
+## Release examples
 
 ```bash
-make dist                                           # build dist/*.whl
-make release ENV=dev                                # version and build
-make release ENV=prod VOLUME=main.packages.python   # build and upload to a volume
-make install                                        # build and install locally
-make test                                           # install and test
+make release ENV=dev DAILY_BUILD_NUMBER=42   # dbrdemo-0.2.0.dev0+2026.09.25.42.abc123-py3-none-any.whl
+make release ENV=test DAILY_BUILD_NUMBER=42  # dbrdemo-0.2.0b0+2026.09.25.42.abc123-py3-none-any.whl
+make release ENV=acc DAILY_BUILD_NUMBER=42   # dbrdemo-0.2.0rc0+2026.09.25.42.abc123-py3-none-any.whl
+make release ENV=prod                        # dbrdemo-0.2.0-py3-none-any.whl
+make release ENV=prod VOLUME=main.packages.prod  # uploads dbrdemo-0.2.0-py3-none-any.whl
 ```
 
-`VOLUME` accepts `catalog.schema.volume` or `/Volumes/catalog/schema/volume`.
-Production uploads refuse to overwrite an existing wheel. See
-[Packaging](docs/developer/packaging.md) for version formats and examples.
-
-For version `0.1.0`, the example above uploads:
-
-```text
-/Volumes/main/packages/python/dbrdemo-0.1.0-py3-none-any.whl
-```
-
-Install it from a Databricks notebook:
-
-```text
-%pip install /Volumes/main/packages/python/dbrdemo-0.1.0-py3-none-any.whl
-```
+Volume policy: `dev` may overwrite; `test`, `acc`, and `prod` are immutable.
+See [Packaging](docs/developer/packaging.md) for details.
 
 ## Agent Skills
 

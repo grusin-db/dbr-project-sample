@@ -75,3 +75,6 @@ install_workspace_skill: install
 clean: uninstall ug-clean
 	rm -fr dist *.egg-info .pytest_cache build coverage .junittest*.xml coverage.xml .coverage* **/__pycache__
 	rm -rf dbrdemo/resources/docs dbrdemo/resources/skills
+	python3 update_package_version.py --env prod
+	rm -f .dist_version
+	rm -rf $(VENV_DIR)

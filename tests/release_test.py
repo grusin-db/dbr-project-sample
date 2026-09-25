@@ -47,6 +47,8 @@ def test_find_wheel(tmp_path: Path) -> None:
     ("environment", "overwrite"),
     [
         ("dev", True),
+        ("test", False),
+        ("acc", False),
         ("prod", False),
     ],
 )
