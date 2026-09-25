@@ -29,6 +29,23 @@ def get_current_version(version_file: Path = VERSION_FILE) -> str:
     return match.group("version")
 
 
+def _write_version(version_file: Path, package_version: str) -> None:
+    """Replace the version assignment while preserving the module.
+
+    Args:
+        version_file: Python file containing ``__version__``.
+        package_version: Version to write.
+
+    Returns:
+        None.
+    """
+    content = version_file.read_text(encoding="utf-8")
+    updated, count = VERSION_PATTERN.subn(f"__version__ = '{package_version}'", content, count=1)
+    if count != 1:
+        raise ValueError(f"Unable to find __version__ in {version_file}")
+    version_file.write_text(updated, encoding="utf-8")
+
+
 def get_git_commit() -> str:
     """Read the short commit hash for the current checkout.
 
@@ -104,16 +121,39 @@ def update_package_version(
     Returns:
         The package version written to both files.
     """
+    resolved_commit = commit
+    if resolved_commit is None and environment != "prod":
+        resolved_commit = get_git_commit()
+
     package_version = build_package_version(
         current_version=get_current_version(version_file),
         environment=environment,
         date_str=date_str or datetime.now(UTC).strftime("%Y.%m.%d"),
         daily_build_number=daily_build_number,
-        commit=commit or get_git_commit(),
+        commit=resolved_commit or "",
     )
-    version_file.write_text(f"__version__ = '{package_version}'\n", encoding="utf-8")
+    _write_version(version_file, package_version)
     dist_version_file.write_text(f"{package_version}\n", encoding="utf-8")
     return package_version
+
+
+def restore_base_version(version_file: Path = VERSION_FILE) -> str:
+    """Restore the source module to its base production version.
+
+    Args:
+        version_file: Python file containing ``__version__``.
+
+    Returns:
+        The restored base version.
+    """
+    current_version = get_current_version(version_file)
+    match = BASE_VERSION_PATTERN.match(current_version)
+    if match is None:
+        raise ValueError(f"Version {current_version!r} does not start with major.minor.patch")
+
+    base_version = match.group("base")
+    _write_version(version_file, base_version)
+    return base_version
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
@@ -126,7 +166,9 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         Parsed command-line arguments.
     """
     parser = argparse.ArgumentParser(description="Update the dbrdemo package version")
-    parser.add_argument("--env", choices=SUPPORTED_ENVIRONMENTS, required=True)
+    action = parser.add_mutually_exclusive_group(required=True)
+    action.add_argument("--env", choices=SUPPORTED_ENVIRONMENTS)
+    action.add_argument("--restore", action="store_true")
     parser.add_argument("--daily-build-no", default=0, type=int)
     parser.add_argument("--date")
     parser.add_argument("--commit")
@@ -143,6 +185,11 @@ def main(argv: Sequence[str] | None = None) -> None:
         None.
     """
     args = parse_args(argv)
+    if args.restore:
+        package_version = restore_base_version()
+        print(f"Restored package version: {package_version}")
+        return
+
     package_version = update_package_version(
         environment=args.env,
         daily_build_number=args.daily_build_no,

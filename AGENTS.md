@@ -7,8 +7,9 @@ Databricks starter/sample project. Tooling: `uv`, `ruff`, `pyright`, Unity Gatew
 ```bash
 # Install the Databricks VS Code extension 2.17+, authenticate with a clear
 # profile name, then select serverless or classic compute in the extension.
-direnv allow # loads .databricks/.databricks.env automatically
-
+make direnv              # one-time install and shell hook
+# Open a new terminal.
+direnv allow             # load .databricks/.databricks.env automatically
 make dev                 # uv + Python 3.12 + DBR 17 environment
 ```
 

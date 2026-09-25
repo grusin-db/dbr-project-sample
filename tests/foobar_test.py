@@ -10,6 +10,7 @@ def test_create_foobar() -> None:
         None.
     """
     row = create_foobar("hello", "world").first()
+    assert row is not None
 
     assert row.asDict() == {"foo": "hello", "bar": "world"}
 
@@ -29,4 +30,5 @@ def test_write_foobar(temporary_schema: tuple[str, str]) -> None:
     write_foobar(table_name, "hello", "world")
 
     row = get_spark().table(table_name).first()
+    assert row is not None
     assert row.asDict() == {"foo": "hello", "bar": "world"}

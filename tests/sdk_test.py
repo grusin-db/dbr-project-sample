@@ -53,5 +53,7 @@ def test_upload_file_to_volume(
 
     ws.files.upload(file_path, io.BytesIO(b"some: initial text data 2222"), overwrite=True)
 
-    downloaded = ws.files.download(file_path).contents.read()
+    contents = ws.files.download(file_path).contents
+    assert contents is not None
+    downloaded = contents.read()
     assert downloaded == b"some: initial text data 2222"

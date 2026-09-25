@@ -106,9 +106,9 @@ print(read_doc("README.md"))
 ## Release examples
 
 ```bash
-make release ENV=dev DAILY_BUILD_NUMBER=42   # dbrdemo-0.2.0.dev0+2026.09.25.42.abc123-py3-none-any.whl
-make release ENV=test DAILY_BUILD_NUMBER=42  # dbrdemo-0.2.0b0+2026.09.25.42.abc123-py3-none-any.whl
-make release ENV=acc DAILY_BUILD_NUMBER=42   # dbrdemo-0.2.0rc0+2026.09.25.42.abc123-py3-none-any.whl
+make release ENV=dev DAILY_BUILD_NUMBER=42   # dbrdemo-0.2.0.dev0+2026.9.25.42.abc123-py3-none-any.whl
+make release ENV=test DAILY_BUILD_NUMBER=42  # dbrdemo-0.2.0b0+2026.9.25.42.abc123-py3-none-any.whl
+make release ENV=acc DAILY_BUILD_NUMBER=42   # dbrdemo-0.2.0rc0+2026.9.25.42.abc123-py3-none-any.whl
 make release ENV=prod                        # dbrdemo-0.2.0-py3-none-any.whl
 make release ENV=prod VOLUME=main.packages.prod  # uploads dbrdemo-0.2.0-py3-none-any.whl
 ```
@@ -148,8 +148,6 @@ Keep this reference small, then add controls your project needs:
   [Dependabot](https://docs.github.com/code-security/dependabot) or
   [Renovate](https://docs.renovatebot.com/).
 - Enforce a minimum test coverage percentage in CI.
-- Publish versioned wheels to an internal artifact repository or Unity Catalog
-  volume.
 
 ## Use this starter
 

@@ -26,6 +26,13 @@ Important options:
 - `--cov=dbrdemo`: [pytest-cov](https://pytest-cov.readthedocs.io/) reports
   coverage without enforcing a threshold.
 
+## Databricks test libraries
+
+- [Databricks Labs pytester](https://github.com/databrickslabs/pytester)
+  provides reusable pytest helpers such as `make_random`.
+- [Databricks Labs Blueprint](https://github.com/databrickslabs/blueprint)
+  provides the formatted logger enabled by `tests/conftest.py`.
+
 ## Test design
 
 - Local tests cover docs, CLIs, and skill installation.
@@ -39,5 +46,5 @@ the current catalog.
 ## Debug one test
 
 ```bash
-pytest -n0 -vv tests/foobar_test.py::test_write_foobar
+.venv/bin/pytest -n0 -vv tests/foobar_test.py::test_write_foobar
 ```

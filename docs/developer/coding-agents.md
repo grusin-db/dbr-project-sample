@@ -9,6 +9,13 @@ can connect through [Unity Gateway](https://docs.databricks.com/aws/en/ai-gatewa
 ## Install once
 
 ```bash
+make ug
+```
+
+Open a new terminal, then run:
+
+```bash
+direnv allow
 make install_claudecode
 make install_codex
 make install_cursorcli

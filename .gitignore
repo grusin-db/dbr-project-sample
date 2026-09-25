@@ -1,6 +1,5 @@
 coverage/**
 .junittest*.xml
-.dist_version
 
 
 # Byte-compiled / optimized / DLL files

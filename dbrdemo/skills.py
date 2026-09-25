@@ -6,6 +6,7 @@ import shutil
 from pathlib import Path
 
 from databricks.sdk import WorkspaceClient
+from databricks.sdk.errors import NotFound
 from databricks.sdk.service.workspace import ImportFormat
 
 logger = logging.getLogger(__name__)
@@ -93,7 +94,7 @@ def _upload_to_databricks(ws: WorkspaceClient, target: str) -> list[str]:
             name = obj.path.rsplit("/", 1)[-1]
             if obj.object_type and obj.object_type.value == "DIRECTORY" and name.startswith(SKILL_DIR_PREFIX):
                 ws.workspace.delete(obj.path, recursive=True)
-    except Exception as e:  # noqa: BLE001 - target may not exist yet
+    except NotFound as e:
         logger.debug("Skip skills cleanup for %s: %s", target, e)
 
     installed: set[str] = set()

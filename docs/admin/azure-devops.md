@@ -27,8 +27,8 @@ CI does not use `.databricks/.databricks.env` or `.envrc`.
 
 1. `AzureCLI@2` authenticates through the service connection.
 2. `addSpnToEnvironment` exposes the client ID, secret, and tenant ID.
-3. The task stores them as `ARM_CLIENT_ID`, `ARM_CLIENT_SECRET`, and
-   `ARM_TENANT_ID` for later steps.
+3. The task stores them as `ARM_CLIENT_ID`, protected `ARM_CLIENT_SECRET`, and
+   `ARM_TENANT_ID`; the test step explicitly maps the protected secret.
 4. The test step adds `DATABRICKS_HOST` and sets
    `DATABRICKS_SERVERLESS_COMPUTE_ID=auto`.
 5. [Databricks unified authentication](https://learn.microsoft.com/azure/databricks/dev-tools/auth/unified-auth)

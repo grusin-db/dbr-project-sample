@@ -23,4 +23,8 @@ def read_doc(relative_path: str) -> str:
     Returns:
         The document content.
     """
-    return (DOCS_PATH / relative_path).read_text(encoding="utf-8")
+    docs_path = DOCS_PATH.resolve()
+    document_path = (docs_path / relative_path).resolve()
+    if not document_path.is_relative_to(docs_path):
+        raise ValueError(f"Document path must stay inside {DOCS_PATH}")
+    return document_path.read_text(encoding="utf-8")

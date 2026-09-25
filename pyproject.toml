@@ -7,6 +7,7 @@ name = "dbrdemo"
 description = "Reference implementation for a Python library on Databricks"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
 authors = [
     { name = "Grzegorz Rusin", email = "grzegorz.rusin@databricks.com" },
 ]
@@ -17,6 +18,10 @@ dependencies = [
     "databricks-labs-blueprint>=0.4.3",
     "databricks-sdk>=0.30",
 ]
+
+[project.urls]
+Repository = "https://github.com/grusin-db/dbr-project-sample"
+Documentation = "https://github.com/grusin-db/dbr-project-sample/tree/main/docs"
 
 [project.scripts]
 dbrdemo-foobar = "dbrdemo.cli:cli_foobar"
@@ -33,7 +38,7 @@ include = ["dbrdemo*"]
 exclude = ["tests", "tests.*"]
 
 [tool.setuptools.package-data]
-dbrdemo = ["resources/docs/**/*.md", "resources/skills/**/*"]
+dbrdemo = ["py.typed", "resources/docs/**/*.md", "resources/skills/**/*"]
 
 [tool.setuptools.dynamic]
 version = { attr = "dbrdemo.version.__version__" }
@@ -47,21 +52,24 @@ dev18 = { file = ["requirements/dev-common.txt", "requirements/dev18.txt"] }
 
 [tool.ruff]
 line-length = 120
-target-version = "py311"
+target-version = "py312"
 extend-exclude = ["*.ipynb", "build", "dist"]
 
 [tool.ruff.lint]
-select = ["E4", "E9", "F401", "I"]
-ignore = ["E402"]
+select = ["ANN", "D", "E", "F", "I", "W"]
+ignore = ["ANN401"]
 
 [tool.ruff.lint.per-file-ignores]
 "**/__init__.py" = ["F401"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 [tool.ruff.format]
 quote-style = "preserve"
 
 [tool.pyright]
-include = ["dbrdemo"]
+include = ["dbrdemo", "tests", "update_package_version.py"]
 exclude = ["**/__pycache__"]
 venvPath = "."
 venv = ".venv"

@@ -85,6 +85,19 @@ def test_upload_replaces_prefixed_workspace_skills() -> None:
     assert ws.workspace.upload.call_args.args[0].endswith("/dbrdemo-getting-started/SKILL.md")
 
 
+def test_upload_surfaces_workspace_listing_errors() -> None:
+    """Verify that workspace failures are not treated as missing folders.
+
+    Returns:
+        None.
+    """
+    ws = MagicMock()
+    ws.workspace.list.side_effect = RuntimeError("workspace unavailable")
+
+    with pytest.raises(RuntimeError, match="workspace unavailable"):
+        skills._upload_to_databricks(ws, skills.WORKSPACE_SKILLS_PATH)
+
+
 @pytest.mark.parametrize(
     ("installer", "target"),
     [
