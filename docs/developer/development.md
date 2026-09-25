@@ -26,17 +26,5 @@ make flint     # run fmt, then lint
 
 ## Tests
 
-```bash
-make test
-```
-
-Tests use Databricks Connect and
-[`databricks-labs-pytester`](https://github.com/databrickslabs/pytester). The
-examples cover:
-
-- package documentation and local skill installation
-- Databricks SDK access
-- file upload through a temporary Unity Catalog volume
-- writing and reading foo/bar rows through a temporary table
-
-Pytester removes temporary workspace resources after each test.
+Run `make test`. See [Testing](testing.md) for environment setup, parallel
+execution, coverage, Databricks Labs pytester, and temporary resource cleanup.

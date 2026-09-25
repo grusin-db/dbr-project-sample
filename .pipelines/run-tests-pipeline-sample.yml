@@ -49,8 +49,8 @@ stages:
         make test
       displayName: 'Test package'
       env:
-        DATABRICKS_CLUSTER_ID: $(databricksCluster)
         DATABRICKS_HOST: $(databricksHost)
+        DATABRICKS_SERVERLESS_COMPUTE_ID: auto
 
     - task: PublishTestResults@2
       displayName: 'Publish unit test results'

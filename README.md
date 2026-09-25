@@ -46,6 +46,23 @@ It includes:
 See [Developer setup](docs/developer/getting-started.md) for details. Windows
 users should use [WSL2](https://learn.microsoft.com/windows/wsl/install).
 
+## Key libraries
+
+[`uv`](https://docs.astral.sh/uv/) installs these dependencies; their source is
+not vendored:
+
+- [Databricks SDK for Python](https://databricks-sdk-py.readthedocs.io/en/latest/),
+  [Databricks Connect](https://docs.databricks.com/aws/en/dev-tools/databricks-connect/python/),
+  and [Databricks Labs Blueprint](https://github.com/databrickslabs/blueprint)
+- [pytest](https://docs.pytest.org/),
+  [Databricks Labs pytester](https://github.com/databrickslabs/pytester),
+  [pytest-xdist](https://pytest-xdist.readthedocs.io/), and
+  [pytest-cov](https://pytest-cov.readthedocs.io/)
+- [Ruff](https://docs.astral.sh/ruff/) and
+  [Pyright](https://microsoft.github.io/pyright/)
+
+See [Testing](docs/developer/testing.md) for their roles.
+
 ## Example library
 
 Append a foo/bar row to a Databricks table:

@@ -13,6 +13,7 @@ def test_foobar_docs() -> None:
         "README.md",
         "admin/README.md",
         "developer/README.md",
+        "developer/testing.md",
         "user/README.md",
         "user/foobar.md",
         "user/local-notebook.md",
