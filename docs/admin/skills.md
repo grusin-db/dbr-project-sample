@@ -1,7 +1,9 @@
 # Install Agent Skills
 
-The wheel contains the `dbrdemo-*` Agent Skills. Install the wheel on
-Databricks, then run the Python examples below from a notebook.
+The wheel contains the `dbrdemo-*`
+[Genie Code Agent Skills](https://docs.databricks.com/aws/en/genie-code/skills).
+Install the wheel on Databricks, then run the Python examples below from a
+notebook.
 
 ## Entire workspace (recommended)
 

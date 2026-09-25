@@ -6,7 +6,9 @@
 make dist
 ```
 
-The target:
+The target builds a
+[Python wheel](https://packaging.python.org/en/latest/specifications/binary-distribution-format/)
+as follows:
 
 1. Removes stale build metadata and generated resources.
 2. Copies top-level `docs/` to `dbrdemo/resources/docs/`.
@@ -15,6 +17,10 @@ The target:
 
 Generated resources are gitignored. Source documentation and skills remain in
 their top-level directories.
+
+Packaging both resources with the code creates one versioned artifact. Users
+and agents can read matching documentation, and admins can install matching
+Genie Code skills, without access to the source repository.
 
 ## Install the wheel
 

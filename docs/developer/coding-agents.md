@@ -1,7 +1,9 @@
 # Coding agents
 
-Genie Code uses Agent Skills installed in the Databricks user or workspace
-folders. Compatible external coding agents can connect through Unity Gateway
+[Genie Code](https://docs.databricks.com/aws/en/genie-code/use-genie-code) uses
+[Agent Skills](https://docs.databricks.com/aws/en/genie-code/skills) installed
+in the Databricks user or workspace folders. Compatible external coding agents
+can connect through [Unity Gateway](https://docs.databricks.com/aws/en/ai-gateway/coding-agent-quickstart)
 (`ug`).
 
 ## Install once

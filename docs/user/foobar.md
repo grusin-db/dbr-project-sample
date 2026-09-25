@@ -1,7 +1,9 @@
 # Foo/bar
 
-`dbrdemo` creates a one-row Spark DataFrame and can append that row to a
-Databricks table.
+`dbrdemo` creates a one-row
+[Spark DataFrame](https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/dataframe.html)
+and can append that row to a
+[Databricks table](https://docs.databricks.com/aws/en/tables/).
 
 ## Create a DataFrame
 

@@ -1,24 +1,36 @@
 # dbrdemo
 
 Reference implementation for a Python library that runs locally through
-Databricks Connect and as an installed wheel on Databricks.
+[Databricks Connect](https://docs.databricks.com/aws/en/dev-tools/databricks-connect/python/)
+and as an installed [Python wheel](https://packaging.python.org/en/latest/specifications/binary-distribution-format/)
+on Databricks.
 
 It includes:
 
-- Python 3.12 dependency management with `uv` and `uv.lock`
-- Ruff formatting/linting and Pyright type checking
-- Databricks SDK, Spark, and Unity Catalog test examples
-- wheel-packaged documentation and Genie Code Agent Skills
-- Unity Gateway support for compatible coding agents
-- a sample Azure DevOps pipeline
+- [Python 3.12](https://docs.python.org/3.12/) dependency management with
+  [`uv`](https://docs.astral.sh/uv/) and
+  [`uv.lock`](https://docs.astral.sh/uv/concepts/projects/layout/#the-lockfile)
+- [Ruff](https://docs.astral.sh/ruff/) formatting/linting and
+  [Pyright](https://microsoft.github.io/pyright/) type checking
+- Test examples for the
+  [Databricks SDK for Python](https://databricks-sdk-py.readthedocs.io/en/latest/),
+  [Databricks Connect](https://docs.databricks.com/aws/en/dev-tools/databricks-connect/python/),
+  and [Unity Catalog](https://docs.databricks.com/aws/en/data-governance/unity-catalog/);
+  Databricks Connect supplies the PySpark client transitively
+- [wheel-packaged documentation](docs/README.md) and
+  [Genie Code Agent Skills](https://docs.databricks.com/aws/en/genie-code/skills)
+- [Unity Gateway](https://docs.databricks.com/aws/en/ai-gateway/coding-agent-quickstart)
+  support for [compatible coding agents](https://docs.databricks.com/aws/en/ai-gateway/coding-agent-supported-agents)
+- a sample [Azure DevOps Pipeline](https://learn.microsoft.com/azure/devops/pipelines/?view=azure-devops)
 
 ## Quick start
 
 1. Install version 2.17 or newer of the
    [Databricks VS Code extension](https://marketplace.visualstudio.com/items?itemName=databricks.databricks).
 2. Authenticate with a clear profile name.
-3. Select serverless or classic compute.
-4. Prepare the repository:
+3. Select [serverless](https://docs.databricks.com/aws/en/compute/serverless/)
+   or [classic compute](https://docs.databricks.com/aws/en/compute/configure).
+4. Prepare the repository with [`direnv`](https://direnv.net/):
 
    ```bash
    make direnv    # install direnv and its shell hook
@@ -51,8 +63,9 @@ The CLI calls the same function:
 dbrdemo-foobar --table main.demo.foobar --foo hello --bar world
 ```
 
-See the [foo/bar user guide](docs/user/foobar.md) for the DataFrame API and
-table behavior.
+See the [foo/bar user guide](docs/user/foobar.md) for the
+[DataFrame API](https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/dataframe.html)
+and table behavior.
 
 ## Documentation
 
@@ -60,7 +73,10 @@ table behavior.
 - [Admin documentation](docs/admin/README.md): skill installation and Azure DevOps
 - [Developer documentation](docs/developer/README.md): setup, testing, packaging, and coding agents
 
-Documentation is included in the wheel. Display it from Python:
+Docs and skills ship in the wheel, so users and agents get guidance matching
+the installed code.
+
+Display bundled documentation from Python:
 
 ```python
 from dbrdemo.documentation import read_doc
