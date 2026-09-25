@@ -102,16 +102,31 @@ from dbrdemo.documentation import read_doc
 print(read_doc("README.md"))
 ```
 
-## Build and install
+## Build, release, and publish
 
 ```bash
-make dist      # package code, docs, and skills in dist/*.whl
-make install   # build and install the wheel
-make test      # install the wheel and run the test suite
+make dist                                           # build dist/*.whl
+make release ENV=dev                                # version and build
+make release ENV=prod VOLUME=main.packages.python   # build and upload to a volume
+make install                                        # build and install locally
+make test                                           # install and test
 ```
 
-See [Packaging](docs/developer/packaging.md) for the wheel layout and installed
-commands.
+`VOLUME` accepts `catalog.schema.volume` or `/Volumes/catalog/schema/volume`.
+Production uploads refuse to overwrite an existing wheel. See
+[Packaging](docs/developer/packaging.md) for version formats and examples.
+
+For version `0.1.0`, the example above uploads:
+
+```text
+/Volumes/main/packages/python/dbrdemo-0.1.0-py3-none-any.whl
+```
+
+Install it from a Databricks notebook:
+
+```text
+%pip install /Volumes/main/packages/python/dbrdemo-0.1.0-py3-none-any.whl
+```
 
 ## Agent Skills
 

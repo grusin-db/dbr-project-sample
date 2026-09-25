@@ -173,6 +173,7 @@ databricks.yml
 .uvtools/
 
 # Generated wheel resources (copied from top-level sources by make dist)
+.dist_version
 dbrdemo/resources/docs/
 dbrdemo/resources/skills/
 

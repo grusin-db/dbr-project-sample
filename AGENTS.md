@@ -23,6 +23,7 @@ make lint     # ruff check + ruff format --check + pyright
 make flint    # fmt then lint
 make test     # pytest + coverage (needs a Databricks connection)
 make dist     # build the wheel
+make release ENV=prod  # version and build a release wheel
 ```
 
 ## Code style (required)
@@ -45,7 +46,7 @@ Genie Code uses the bundled Agent Skills directly in Databricks. For compatible
 external coding agents, `ug` routes Claude Code, Codex, Gemini, OpenCode,
 Copilot, Pi, and Cursor through Databricks Unity Gateway. It is installed into
 `.uvtools` (isolated from `.venv`).
-Docs: https://docs.databricks.com/aws/en/ai-gateway/coding-agent-ug-cli
+Docs: [Unity Gateway CLI](https://docs.databricks.com/aws/en/ai-gateway/coding-agent-ug-cli)
 
 ```bash
 make ug                  # install the ug CLI (runs `make direnv` first)
