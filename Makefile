@@ -24,7 +24,7 @@ dev17: ; $(MAKE) _dev_install EXTRA=dev17
 dev18: ; $(MAKE) _dev_install EXTRA=dev18
 
 install: dist
-	@uv pip install --quiet --reinstall --no-deps dist/*.whl
+	@uv pip install --quiet --reinstall dist/*.whl
 
 uninstall:
 	yes | uv pip uninstall dbrdemo || true
