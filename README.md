@@ -1,6 +1,6 @@
-# Databricks Python Starter
+# dbrdemo
 
-Use this repository to start a Python library that runs locally through
+Reference implementation for a Python library that runs locally through
 Databricks Connect and as an installed wheel on Databricks.
 
 It includes:

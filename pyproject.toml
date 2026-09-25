@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dbrdemo"
-description = "Databricks starter/sample project with uv, ruff, pyright, ug, and agent skills"
+description = "Reference implementation for a Python library on Databricks"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 authors = [
