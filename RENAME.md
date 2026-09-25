@@ -24,11 +24,10 @@ substitution -- no cookiecutter, no templating engine.
 
 ## Notes
 
-- Keep `uv.lock` committed. Point `make dev` at the oldest DBR version your
-  project supports; that Databricks Connect version also works with newer
-  runtimes.
+- Point `make dev` at the oldest DBR version your project supports; that
+  Databricks Connect version also works with newer runtimes.
 - To support another DBR version, add its requirements file, optional dependency,
-  conflict entry, and Make target, then run `uv lock`.
+  optional dependency, and Make target.
 - `tests/sdk_test.py` uses the `ws` and `make_volume` fixtures from
   databricks-labs-pytester. `make_volume` needs Unity Catalog access (and a
   warehouse for schema creation) in the connected workspace; the volume is

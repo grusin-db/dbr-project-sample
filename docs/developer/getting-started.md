@@ -23,7 +23,7 @@ Open a new terminal, then run:
 
 ```bash
 direnv allow   # approve .envrc
-make dev       # create the locked Python 3.12 environment
+make dev       # create the Python 3.12 development environment
 make flint     # format, lint, and type-check
 ```
 

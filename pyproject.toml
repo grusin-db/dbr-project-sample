@@ -45,17 +45,6 @@ dev16 = { file = ["requirements/dev-common.txt", "requirements/dev16.txt"] }
 dev17 = { file = ["requirements/dev-common.txt", "requirements/dev17.txt"] }
 dev18 = { file = ["requirements/dev-common.txt", "requirements/dev18.txt"] }
 
-[tool.uv]
-conflicts = [
-    [
-        { extra = "dev" },
-        { extra = "dev15" },
-        { extra = "dev16" },
-        { extra = "dev17" },
-        { extra = "dev18" },
-    ],
-]
-
 [tool.ruff]
 line-length = 120
 target-version = "py311"

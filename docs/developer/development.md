@@ -9,9 +9,8 @@ must be equal to or older than the target runtime, so Connect 17 supports DBR
 
 Change the alias in `Makefile` when the project's minimum runtime changes.
 Versioned targets `dev15`, `dev16`, `dev17`, and `dev18` remain available for
-compatibility testing.
-[`uv.lock`](https://docs.astral.sh/uv/concepts/projects/layout/#the-lockfile)
-keeps all environments reproducible.
+compatibility testing. Each target recreates `.venv` and installs its
+requirements directly with `uv`.
 
 ## Quality checks
 

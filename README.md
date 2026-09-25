@@ -7,9 +7,8 @@ on Databricks.
 
 It includes:
 
-- [Python 3.12](https://docs.python.org/3.12/) dependency management with
-  [`uv`](https://docs.astral.sh/uv/) and
-  [`uv.lock`](https://docs.astral.sh/uv/concepts/projects/layout/#the-lockfile)
+- [Python 3.12](https://docs.python.org/3.12/) environments and dependency
+  installation with [`uv`](https://docs.astral.sh/uv/)
 - [Ruff](https://docs.astral.sh/ruff/) formatting/linting and
   [Pyright](https://microsoft.github.io/pyright/) type checking
 - Test examples for the
@@ -40,7 +39,7 @@ It includes:
 
    ```bash
    direnv allow   # load the extension-generated Databricks environment
-   make dev       # create the locked Python 3.12 environment
+   make dev       # create the Python 3.12 development environment
    make flint     # format, lint, and type-check
    ```
 
@@ -112,6 +111,25 @@ User-scoped installation is only for testing and troubleshooting; user skills
 have lower priority than workspace skills. See
 [Install Agent Skills](docs/admin/skills.md). Compatible local coding agents
 can use `make install_skills`.
+
+## Ideas for production projects
+
+Keep this reference small, then add controls your project needs:
+
+- Commit [`uv.lock`](https://docs.astral.sh/uv/concepts/projects/layout/#the-lockfile)
+  when deployments require fully reproducible dependency resolution.
+- Add [Radon](https://radon.readthedocs.io/) or
+  [Xenon](https://xenon.readthedocs.io/) complexity limits.
+- Run formatting and checks automatically with
+  [pre-commit](https://pre-commit.com/).
+- Scan dependencies with [pip-audit](https://github.com/pypa/pip-audit) and
+  Python code with [Bandit](https://bandit.readthedocs.io/).
+- Automate dependency updates with
+  [Dependabot](https://docs.github.com/code-security/dependabot) or
+  [Renovate](https://docs.renovatebot.com/).
+- Enforce a minimum test coverage percentage in CI.
+- Publish versioned wheels to an internal artifact repository or Unity Catalog
+  volume.
 
 ## Use this starter
 

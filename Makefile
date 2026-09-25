@@ -11,11 +11,12 @@ include Makefile.ug.mk
 	install_skills install_user_skill install_workspace_skill
 
 # One Databricks Runtime at a time: the devN extras pin different
-# databricks-connect versions and are declared as conflicts in pyproject.toml.
+# databricks-connect versions.
 _dev_install:
 	which uv || pip install --upgrade uv
 	uv python pin 3.12
-	uv sync --locked --extra $(EXTRA)
+	uv venv --clear $(VENV_DIR)
+	uv pip install '.[$(EXTRA)]'
 
 dev: dev17
 dev15: ; $(MAKE) _dev_install EXTRA=dev15

@@ -9,11 +9,11 @@ Databricks starter/sample project. Tooling: `uv`, `ruff`, `pyright`, Unity Gatew
 # profile name, then select serverless or classic compute in the extension.
 direnv allow # loads .databricks/.databricks.env automatically
 
-make dev                 # uv + Python 3.12 + locked DBR 17 environment
+make dev                 # uv + Python 3.12 + DBR 17 environment
 ```
 
 Use `make dev` (currently `dev17`). Connect must be equal to or older than the
-runtime, so Connect 17 supports DBR 17-19. Keep `uv.lock` committed.
+runtime, so Connect 17 supports DBR 17-19.
 
 ## Everyday commands
 

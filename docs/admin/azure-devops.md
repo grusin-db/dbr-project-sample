@@ -3,7 +3,7 @@
 The sample
 [Azure DevOps Pipeline](https://learn.microsoft.com/azure/devops/pipelines/?view=azure-devops)
 in `.pipelines/run-tests-pipeline-sample.yml` installs Python 3.12, restores
-the locked development environment, runs quality checks, and executes tests.
+the development environment, runs quality checks, and executes tests.
 
 ## Required configuration
 
