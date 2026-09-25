@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dbrdemo"
+description = "Reference implementation for a Python library on Databricks"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+authors = [
+    { name = "Grzegorz Rusin", email = "grzegorz.rusin@databricks.com" },
+]
+keywords = ["databricks", "starter", "sample", "uv", "skills"]
+classifiers = ["Operating System :: OS Independent"]
+dynamic = ["version", "optional-dependencies"]
+dependencies = [
+    "databricks-labs-blueprint>=0.4.3",
+    "databricks-sdk>=0.30",
+]
+
+[project.urls]
+Repository = "https://github.com/grusin-db/dbr-project-sample"
+Documentation = "https://github.com/grusin-db/dbr-project-sample/tree/main/docs"
+
+[project.scripts]
+dbrdemo-foobar = "dbrdemo.cli:cli_foobar"
+dbrdemo-docs = "dbrdemo.cli:cli_docs"
+dbrdemo-install-skills = "dbrdemo.cli:cli_install_skills"
+dbrdemo-install-user-skills = "dbrdemo.cli:cli_install_user_skills"
+dbrdemo-install-workspace-skills = "dbrdemo.cli:cli_install_workspace_skills"
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.packages.find]
+include = ["dbrdemo*"]
+exclude = ["tests", "tests.*"]
+
+[tool.setuptools.package-data]
+dbrdemo = ["py.typed", "resources/docs/**/*.md", "resources/skills/**/*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "dbrdemo.version.__version__" }
+
+[tool.setuptools.dynamic.optional-dependencies]
+dev = { file = ["requirements/dev-common.txt", "requirements/dev17.txt"] }
+dev15 = { file = ["requirements/dev-common.txt", "requirements/dev15.txt"] }
+dev16 = { file = ["requirements/dev-common.txt", "requirements/dev16.txt"] }
+dev17 = { file = ["requirements/dev-common.txt", "requirements/dev17.txt"] }
+dev18 = { file = ["requirements/dev-common.txt", "requirements/dev18.txt"] }
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = ["*.ipynb", "build", "dist"]
+
+[tool.ruff.lint]
+select = ["ANN", "D", "E", "F", "I", "W"]
+ignore = ["ANN401"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/__init__.py" = ["F401"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "preserve"
+
+[tool.pyright]
+include = ["dbrdemo", "tests", "update_package_version.py"]
+exclude = ["**/__pycache__"]
+venvPath = "."
+venv = ".venv"
+pythonVersion = "3.12"

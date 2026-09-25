@@ -1,61 +1,155 @@
-# Databricks VS Code Project Sample/Demo
+# dbrdemo
 
-Sample Databricks Project with unit tests and wheel file package.
+Reference implementation for a Python library that runs locally through
+[Databricks Connect](https://docs.databricks.com/aws/en/dev-tools/databricks-connect/python/)
+and as an installed [Python wheel](https://packaging.python.org/en/latest/specifications/binary-distribution-format/)
+on Databricks.
 
-Make sure you install [Databricks VS Code extension](https://marketplace.visualstudio.com/items?itemName=databricks.databricks) first, and connect to a cluster!
+It includes:
 
-This project relies of [Databricks Connect](https://docs.databricks.com/en/dev-tools/databricks-connect/python/index.html) to establish connection with databricks clusters.
+- [Python 3.12](https://docs.python.org/3.12/) environments and dependency
+  installation with [`uv`](https://docs.astral.sh/uv/)
+- [Ruff](https://docs.astral.sh/ruff/) formatting/linting and
+  [Pyright](https://microsoft.github.io/pyright/) type checking
+- Test examples for the
+  [Databricks SDK for Python](https://databricks-sdk-py.readthedocs.io/en/latest/),
+  [Databricks Connect](https://docs.databricks.com/aws/en/dev-tools/databricks-connect/python/),
+  and [Unity Catalog](https://docs.databricks.com/aws/en/data-governance/unity-catalog/);
+  Databricks Connect supplies the PySpark client transitively
+- [wheel-packaged documentation](docs/README.md) and
+  [Genie Code Agent Skills](https://docs.databricks.com/aws/en/genie-code/skills)
+- [Unity Gateway](https://docs.databricks.com/aws/en/ai-gateway/coding-agent-quickstart)
+  support for [compatible coding agents](https://docs.databricks.com/aws/en/ai-gateway/coding-agent-supported-agents)
+- a sample [Azure DevOps Pipeline](https://learn.microsoft.com/azure/devops/pipelines/?view=azure-devops)
 
-For purpose of this demo, this codebase assumes that you are running 14.3 LTS (latests as of now) Databricks Runtime. Python 3.10 or newer. Preferably make sure you VM matches setup of VM of [Databricks Runtime 14.3 LTS](https://docs.databricks.com/en/release-notes/runtime/14.3lts.html#system-environment)
+## Quick start
 
-## CLI Features (you should run them in order of listing for first time setup to setup everything):
+1. Install version 2.17 or newer of the
+   [Databricks VS Code extension](https://marketplace.visualstudio.com/items?itemName=databricks.databricks).
+2. Authenticate with a clear profile name.
+3. Select [serverless](https://docs.databricks.com/aws/en/compute/serverless/)
+   or [classic compute](https://docs.databricks.com/aws/en/compute/configure).
+4. Prepare the repository with [`direnv`](https://direnv.net/):
 
-- `make dev` - builds development environment on local machine
-- `make fmt` - auto formats your code
-- `make lint` - verifies if code follows programming guidelines, performs static type checking using `pyright`
-- `make dist` - builds the wheel file, auto incrementing version
-- `make test` - runs unit tests and display test coverage report in your browser
-- `make install` - install the package and cli commands
+   ```bash
+   make direnv    # install direnv and its shell hook
+   ```
 
-## CLI Commands:
+5. Open a new terminal, then run:
 
-- `dbrdemo-foobar` - run with `--help` to see what advanced features it has!
-  - for example `dbrdemo-foobar --foo test --bar 123` -- will establish spark session, and run some basic query
+   ```bash
+   direnv allow   # load the extension-generated Databricks environment
+   make dev       # create the Python 3.12 development environment
+   make flint     # format, lint, and type-check
+   ```
 
-## Project Structure:
+See [Developer setup](docs/developer/getting-started.md) for details. Windows
+users should use [WSL2](https://learn.microsoft.com/windows/wsl/install).
 
-- `dbdemos` is the package folder, all it's contents will be put into wheel file when `make dist` is ran
-- `tests` is the folder where unit tests are placed, there are 3 types of tests:
-  - `pytest` simple tests just showing that pytest is working fine
-  - `sdk` simple tests showing that SDK's `WorspaceClient` is working fine
-  - `etl` simple tests checking some spark elt logic, it verifies that db connect is working as expected
-  
-Windows users might want to use WSL2 and setup VSCode to use WS2 image of your favorite linux distribution.
+## Key libraries
 
-## Static Type checking:
-Pyright is used to perform static type checking, in case codebase cannot be imediatelly fixed to pass all the checks, the files to ignore can be put into the `pyrightconfig.json`. Typical workflow for making existing codebase pass all tests involves putting all files in ignore list, and then one by one fixing the code and removing it from the ignore list to achive 100% type checking.
+[`uv`](https://docs.astral.sh/uv/) installs these dependencies; their source is
+not vendored:
 
+- [Databricks SDK for Python](https://databricks-sdk-py.readthedocs.io/en/latest/),
+  and [Databricks Connect](https://docs.databricks.com/aws/en/dev-tools/databricks-connect/python/)
+- [pytest](https://docs.pytest.org/),
+  [Databricks Labs pytester](https://github.com/databrickslabs/pytester),
+  [Databricks Labs Blueprint](https://github.com/databrickslabs/blueprint),
+  [pytest-xdist](https://pytest-xdist.readthedocs.io/), and
+  [pytest-cov](https://pytest-cov.readthedocs.io/)
+- [Ruff](https://docs.astral.sh/ruff/) and
+  [Pyright](https://microsoft.github.io/pyright/)
 
-## Azure DevOps
-This project provides a sample YML template `.pipelines/run-tests-pipeline-sample.yml` for an Azure DevOps pipeline that can be used to trigger the tests from an CICD interface.
+See [Testing](docs/developer/testing.md) for their roles.
 
-This requires:
+## Example library
 
-1. A Service Connection which is allowed access on the Databricks workspace (Contributor Role) where you want to run the tests.
+Append a foo/bar row to a Databricks table:
+
+```python
+from dbrdemo import install_logger, write_foobar
+
+install_logger()  # Optional: show events emitted by the library.
+write_foobar("main.demo.foobar", "hello", "world")
 ```
-variables:
-- name: ConnectionName
-  value: "Non-Prod Deployment SPN"
-```
- 2. A variable group containing the ClusterID & Databricks Host URL.
-```
-env:
-	DATABRICKS_CLUSTER_ID: $(databricksCluster)
-	DATABRICKS_HOST: $(databricksHost)
-```
- We recommend using a variable group for management and referencing the variable names here, instead of hardcoding the cluster & host within the YML. 
 
-### Functionality
-The pipeline is kept minimalistic to allow for further customization.
+The CLI calls the same function:
 
-It will fetch the required SPN credentials into a variable (which is required for Databricks-Connect), install the required package dependencies, run the test & publish the results.
+```bash
+dbrdemo-foobar --table main.demo.foobar --foo hello --bar world
+```
+
+See the [foo/bar user guide](docs/user/foobar.md) for the
+[DataFrame API](https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/dataframe.html)
+and table behavior. The
+[local VS Code notebook guide](docs/user/local-notebook.md) explains how to run
+[`dbrdemo-example.ipynb`](dbrdemo-example.ipynb) through Databricks Connect.
+
+## Documentation
+
+- [User documentation](docs/user/README.md): library and CLI usage
+- [Admin documentation](docs/admin/README.md): skill installation and Azure DevOps
+- [Developer documentation](docs/developer/README.md): setup, testing, packaging, and coding agents
+
+Docs and skills ship in the wheel, so users and agents get guidance matching
+the installed code.
+
+Display bundled documentation from Python:
+
+```python
+from dbrdemo.documentation import read_doc
+
+print(read_doc("README.md"))
+```
+
+## Release examples
+
+```bash
+make release ENV=dev DAILY_BUILD_NUMBER=42   # dbrdemo-0.2.0.dev0+2026.9.25.42.abc123-py3-none-any.whl
+make release ENV=test DAILY_BUILD_NUMBER=42  # dbrdemo-0.2.0b0+2026.9.25.42.abc123-py3-none-any.whl
+make release ENV=acc DAILY_BUILD_NUMBER=42   # dbrdemo-0.2.0rc0+2026.9.25.42.abc123-py3-none-any.whl
+make release ENV=prod                        # dbrdemo-0.2.0-py3-none-any.whl
+make release ENV=prod VOLUME=main.packages.prod  # uploads dbrdemo-0.2.0-py3-none-any.whl
+```
+
+Volume policy: `dev` may overwrite; `test`, `acc`, and `prod` are immutable.
+See [Packaging](docs/developer/packaging.md) for details.
+
+## Agent Skills
+
+The bundled skill teaches Genie Code how to use the example library. The
+preferred enterprise deployment installs it for the entire workspace:
+
+```python
+from dbrdemo.skills import install_workspace_skills
+
+install_workspace_skills()
+```
+
+User-scoped installation is only for testing and troubleshooting; user skills
+have lower priority than workspace skills. See
+[Install Agent Skills](docs/admin/skills.md). Compatible local coding agents
+can use `make install_skills`.
+
+## Ideas for production projects
+
+Keep this reference small, then add controls your project needs:
+
+- Commit [`uv.lock`](https://docs.astral.sh/uv/concepts/projects/layout/#the-lockfile)
+  when deployments require fully reproducible dependency resolution.
+- Add [Radon](https://radon.readthedocs.io/) or
+  [Xenon](https://xenon.readthedocs.io/) complexity limits.
+- Run formatting and checks automatically with
+  [pre-commit](https://pre-commit.com/).
+- Scan dependencies with [pip-audit](https://github.com/pypa/pip-audit) and
+  Python code with [Bandit](https://bandit.readthedocs.io/).
+- Automate dependency updates with
+  [Dependabot](https://docs.github.com/code-security/dependabot) or
+  [Renovate](https://docs.renovatebot.com/).
+- Enforce a minimum test coverage percentage in CI.
+
+## Use this starter
+
+Follow [RENAME.md](RENAME.md) to rename the package, CLI commands, and Agent
+Skills for your project.

@@ -1,6 +1,5 @@
 coverage/**
 .junittest*.xml
-.dist_version
 
 
 # Byte-compiled / optimized / DLL files
@@ -165,3 +164,15 @@ cython_debug/
 #.idea/
 
 .databricks
+databricks.yml
+.vscode/
+
+# uv-managed Python pin and repo-local uv tools (ug)
+.python-version
+.uvtools/
+
+# Generated wheel resources (copied from top-level sources by make dist)
+.dist_version
+dbrdemo/resources/docs/
+dbrdemo/resources/skills/
+

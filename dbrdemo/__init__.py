@@ -1,58 +1,40 @@
-# setup nice logger
-from databricks.labs.blueprint.logger import install_logger
+"""Expose the package version and lazily initialized Databricks helpers."""
 
-install_logger()
-
-# setup logger
 import logging
+from typing import Any
 
-logging.getLogger().setLevel(level=logging.CRITICAL)
-logger = logging.getLogger('dbrdemo')
-logger.setLevel(logging.DEBUG)
+from databricks.labs.blueprint.logger import install_logger as _install_logger
 
+from .foobar import create_foobar, write_foobar
+from .session import get_dbutils, get_spark
 from .version import __version__
 
-logger.info(f"Using dbrdemo version: {__version__}")
-
-import datetime
-
-from databricks.sdk import WorkspaceClient
-from pyspark.sql import SparkSession
+logger = logging.getLogger(__name__)
 
 
-def _get_spark_seession() -> SparkSession:
-    try:
-        # if running in real databricks this will return spark
-        from pyspark.sql import SparkSession
-        spark = SparkSession.getActiveSession()
-    except: # NOQA
-        spark = None
+def install_logger() -> None:
+    """Install focused logging for dbrdemo.
 
-    if not spark:
-        logger.debug("Trying to aquire vscode/pytest databricks connect session...")
-        from databricks.connect.session import DatabricksSession
-        spark = DatabricksSession.builder.getOrCreate()
-
-        # TODO: use ascii art to make this personalized just for your code!!! :)
-        #       Open source tools for generating ascii art: https://itsfoss.com/ascii-art-linux-terminal/
-        logger.warning("_________ _______  _______ _________   _______  _______  ______   _______ ")
-        logger.warning("\\__   __/(  ____ \\(  ____ \\\\__   __/  (       )(  ___  )(  __  \\ (  ____ \\")
-        logger.warning("   ) (   | (    \\/| (    \\/   ) (     | () () || (   ) || (  \\  )| (    \\/")
-        logger.warning("   | |   | (__    | (_____    | |     | || || || |   | || |   ) || (__    ")
-        logger.warning("   | |   |  __)   (_____  )   | |     | |(_)| || |   | || |   | ||  __)   ")
-        logger.warning("   | |   | (            ) |   | |     | |   | || |   | || |   ) || (      ")
-        logger.warning("   | |   | (____/\\/\\____) |   | |     | )   ( || (___) || (__/  )| (____/\\")
-        logger.warning("   )_(   (_______/\\_______)   )_(     |/     \\|(_______)(______/ (_______/")
-
-    spark.conf.set('spark.sql.legacy.timeParserPolicy', 'CORRECTED')
-
-    return spark
+    Returns:
+        None.
+    """
+    _install_logger()
+    logging.getLogger().setLevel(logging.CRITICAL)
+    logger.setLevel(logging.DEBUG)
+    logger.info("Using dbrdemo version: %s", __version__)
 
 
-def _get_dbutils():
-    w = WorkspaceClient()
-    return w.dbutils
+def __getattr__(name: str) -> Any:
+    """Expose the Spark session and dbutils without connecting during import.
 
+    Args:
+        name: Attribute being accessed on the module.
 
-spark = _get_spark_seession()
-dbutils = _get_dbutils()
+    Returns:
+        The Spark session for ``spark`` or the dbutils object for ``dbutils``.
+    """
+    if name == "spark":
+        return get_spark()
+    if name == "dbutils":
+        return get_dbutils()
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
