@@ -52,10 +52,10 @@ users should use [WSL2](https://learn.microsoft.com/windows/wsl/install).
 not vendored:
 
 - [Databricks SDK for Python](https://databricks-sdk-py.readthedocs.io/en/latest/),
-  [Databricks Connect](https://docs.databricks.com/aws/en/dev-tools/databricks-connect/python/),
-  and [Databricks Labs Blueprint](https://github.com/databrickslabs/blueprint)
+  and [Databricks Connect](https://docs.databricks.com/aws/en/dev-tools/databricks-connect/python/)
 - [pytest](https://docs.pytest.org/),
   [Databricks Labs pytester](https://github.com/databrickslabs/pytester),
+  [Databricks Labs Blueprint](https://github.com/databrickslabs/blueprint),
   [pytest-xdist](https://pytest-xdist.readthedocs.io/), and
   [pytest-cov](https://pytest-cov.readthedocs.io/)
 - [Ruff](https://docs.astral.sh/ruff/) and
@@ -68,8 +68,9 @@ See [Testing](docs/developer/testing.md) for their roles.
 Append a foo/bar row to a Databricks table:
 
 ```python
-from dbrdemo import write_foobar
+from dbrdemo import install_logger, write_foobar
 
+install_logger()  # Optional: show events emitted by the library.
 write_foobar("main.demo.foobar", "hello", "world")
 ```
 
@@ -121,9 +122,9 @@ The bundled skill teaches Genie Code how to use the example library. The
 preferred enterprise deployment installs it for the entire workspace:
 
 ```python
-from dbrdemo.skills import install_workspace_skill
+from dbrdemo.skills import install_workspace_skills
 
-install_workspace_skill()
+install_workspace_skills()
 ```
 
 User-scoped installation is only for testing and troubleshooting; user skills

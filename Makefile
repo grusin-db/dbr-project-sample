@@ -11,7 +11,7 @@ include Makefile.ug.mk
 
 .PHONY: dev dev15 dev16 dev17 dev18 _dev_install install uninstall \
 	fmt lint flint dist release test clean \
-	install_skills install_user_skill install_workspace_skill
+	install_skills install_user_skills install_workspace_skills
 
 # One Databricks Runtime at a time: the devN extras pin different
 # databricks-connect versions.
@@ -66,11 +66,11 @@ test: install
 install_skills: install
 	$(VENV_DIR)/bin/dbrdemo-install-skills
 
-install_user_skill: install
-	$(VENV_DIR)/bin/dbrdemo-install-user-skill
+install_user_skills: install
+	$(VENV_DIR)/bin/dbrdemo-install-user-skills
 
-install_workspace_skill: install
-	$(VENV_DIR)/bin/dbrdemo-install-workspace-skill
+install_workspace_skills: install
+	$(VENV_DIR)/bin/dbrdemo-install-workspace-skills
 
 clean: uninstall ug-clean
 	rm -fr dist *.egg-info .pytest_cache build coverage .junittest*.xml coverage.xml .coverage* **/__pycache__

@@ -10,9 +10,9 @@ notebook.
 Install skills for all Genie Code users in the workspace:
 
 ```python
-from dbrdemo.skills import install_workspace_skill
+from dbrdemo.skills import install_workspace_skills
 
-install_workspace_skill()
+install_workspace_skills()
 ```
 
 Files are uploaded to `/Workspace/.assistant/skills`. This is the preferred
@@ -23,9 +23,9 @@ enterprise deployment and requires permission to write to that directory.
 Use a user-scoped installation only for testing or troubleshooting:
 
 ```python
-from dbrdemo.skills import install_user_skill
+from dbrdemo.skills import install_user_skills
 
-install_user_skill()
+install_user_skills()
 ```
 
 Files are uploaded to `/Users/<you>/.assistant/skills`.
@@ -36,3 +36,18 @@ deployment, or use a different skill name when a workspace version exists.
 
 Both functions use the notebook user's Databricks identity. Existing
 `dbrdemo-*` skill folders are replaced; unrelated skills are not changed.
+
+## Refresh and verify
+
+Skills are cached for the current browser session. After installation:
+
+1. Refresh the Databricks browser page.
+2. Start a new Genie Code session.
+3. Ask: `What skills do you see?`
+
+Genie Code should list `dbrdemo-getting-started` among other databricks skills.
+
+Then test the skill with:
+
+> Can you use dbrdemo to create a foobar DataFrame with hello world foobar zoobar and
+> save it to a foobar table?

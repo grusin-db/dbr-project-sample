@@ -9,7 +9,7 @@ substitution -- no cookiecutter, no templating engine.
 | ------- | ----- | ------- |
 | `dbrdemo` | package dir, imports, `pyproject.toml`, Makefile, and tests | Python package + project name |
 | `dbrdemo-foobar` | `pyproject.toml` scripts, `dbrdemo/cli.py` | sample app CLI command |
-| `dbrdemo-install-skills`, `dbrdemo-install-user-skill`, `dbrdemo-install-workspace-skill` | `pyproject.toml` scripts | skill install CLIs |
+| `dbrdemo-install-skills`, `dbrdemo-install-user-skills`, `dbrdemo-install-workspace-skills` | `pyproject.toml` scripts | skill install CLIs |
 | `dbrdemo-` | `SKILL_DIR_PREFIX` in `dbrdemo/skills.py` and folders under `skills/` | skill folder prefix |
 | author / email | `pyproject.toml` `[project].authors` | optional |
 

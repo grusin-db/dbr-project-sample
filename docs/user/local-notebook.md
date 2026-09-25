@@ -20,7 +20,7 @@ from a local Jupyter kernel through Databricks Connect.
 
 ## What the notebook demonstrates
 
-1. Print the active Python kernel path.
+1. Optionally enable formatted logging with `install_logger()`.
 2. Import `spark` and `dbutils` from `dbrdemo`.
 3. Use Spark SQL to show the current user and catalog.
 4. List accessible secret scopes with `dbutils.secrets.listScopes()`.

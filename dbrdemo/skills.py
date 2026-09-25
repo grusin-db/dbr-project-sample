@@ -52,7 +52,7 @@ def install_skills(target: Path | None = None) -> list[str]:
     return sorted(installed)
 
 
-def install_user_skill() -> list[str]:
+def install_user_skills() -> list[str]:
     """Upload bundled skills to the current user's Databricks skills folder.
 
     Returns:
@@ -64,7 +64,7 @@ def install_user_skill() -> list[str]:
     return _upload_to_databricks(ws, target)
 
 
-def install_workspace_skill() -> list[str]:
+def install_workspace_skills() -> list[str]:
     """Upload bundled skills to the workspace-wide Databricks skills folder.
 
     Returns:

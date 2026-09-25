@@ -72,7 +72,8 @@ or base version for the next release.
 Install the uploaded wheel in a Databricks notebook with:
 
 ```python
-%pip install /Volumes/main/packages/python/dbrdemo-0.2.0-py3-none-any.whl
+%pip install -q /Volumes/main/packages/python/dbrdemo-0.2.0-py3-none-any.whl
+dbutils.library.restartPython()
 ```
 
 ## Install the wheel
@@ -86,8 +87,8 @@ This rebuilds and installs `dist/*.whl`. The installed package exposes:
 - `dbrdemo-foobar`
 - `dbrdemo-docs`
 - `dbrdemo-install-skills`
-- `dbrdemo-install-user-skill`
-- `dbrdemo-install-workspace-skill`
+- `dbrdemo-install-user-skills`
+- `dbrdemo-install-workspace-skills`
 
 Run `dbrdemo-docs` to display `user/foobar.md`, or pass another bundled path:
 

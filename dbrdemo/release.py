@@ -95,6 +95,9 @@ def main(argv: Sequence[str] | None = None) -> None:
     args = parse_args(argv)
     target = upload_wheel_to_volume(args.volume, find_wheel(args.dist_dir), args.env)
     print(f"Uploaded wheel: {target}")
+    print("\nInstall in a Databricks notebook:")
+    print(f"%pip install -q {target}")
+    print("dbutils.library.restartPython()")
 
 
 if __name__ == "__main__":

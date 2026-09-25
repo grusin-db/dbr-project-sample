@@ -24,6 +24,14 @@ make flint     # run fmt, then lint
 [Pyright](https://microsoft.github.io/pyright/) configuration live in
 `pyproject.toml`.
 
+## Logging
+
+```python
+from dbrdemo import install_logger
+
+install_logger()  # Optional: show events emitted by the library.
+```
+
 ## Tests
 
 Run `make test`. See [Testing](testing.md) for environment setup, parallel

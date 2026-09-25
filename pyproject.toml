@@ -22,8 +22,8 @@ dependencies = [
 dbrdemo-foobar = "dbrdemo.cli:cli_foobar"
 dbrdemo-docs = "dbrdemo.cli:cli_docs"
 dbrdemo-install-skills = "dbrdemo.cli:cli_install_skills"
-dbrdemo-install-user-skill = "dbrdemo.cli:cli_install_user_skill"
-dbrdemo-install-workspace-skill = "dbrdemo.cli:cli_install_workspace_skill"
+dbrdemo-install-user-skills = "dbrdemo.cli:cli_install_user_skills"
+dbrdemo-install-workspace-skills = "dbrdemo.cli:cli_install_workspace_skills"
 
 [tool.setuptools]
 include-package-data = false

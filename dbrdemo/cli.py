@@ -4,7 +4,7 @@ import argparse
 
 from .documentation import list_docs, read_doc
 from .foobar import write_foobar
-from .skills import install_skills, install_user_skill, install_workspace_skill
+from .skills import install_skills, install_user_skills, install_workspace_skills
 
 
 def cli_foobar() -> None:
@@ -45,23 +45,23 @@ def cli_install_skills() -> None:
     print(f"Installed {len(installed)} skill(s) to ~/.agents/skills: {', '.join(installed) or '(none)'}")
 
 
-def cli_install_user_skill() -> None:
+def cli_install_user_skills() -> None:
     """Upload bundled skills to the current user's Databricks folder.
 
     Returns:
         None.
     """
-    installed = install_user_skill()
+    installed = install_user_skills()
     print(
         f"Uploaded {len(installed)} skill(s) to your Databricks user skills folder: {', '.join(installed) or '(none)'}"
     )
 
 
-def cli_install_workspace_skill() -> None:
+def cli_install_workspace_skills() -> None:
     """Upload bundled skills to the workspace-wide Databricks folder.
 
     Returns:
         None.
     """
-    installed = install_workspace_skill()
+    installed = install_workspace_skills()
     print(f"Uploaded {len(installed)} skill(s) to the workspace skills folder: {', '.join(installed) or '(none)'}")

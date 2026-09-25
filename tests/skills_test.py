@@ -88,8 +88,8 @@ def test_upload_replaces_prefixed_workspace_skills() -> None:
 @pytest.mark.parametrize(
     ("installer", "target"),
     [
-        (skills.install_user_skill, "/Users/test@example.com/.assistant/skills"),
-        (skills.install_workspace_skill, skills.WORKSPACE_SKILLS_PATH),
+        (skills.install_user_skills, "/Users/test@example.com/.assistant/skills"),
+        (skills.install_workspace_skills, skills.WORKSPACE_SKILLS_PATH),
     ],
 )
 def test_databricks_install_targets(

@@ -1,21 +1,27 @@
 """Expose the package version and lazily initialized Databricks helpers."""
 
-from databricks.labs.blueprint.logger import install_logger
-
-install_logger()
-
 import logging
 from typing import Any
 
-logging.getLogger().setLevel(level=logging.CRITICAL)
-logger = logging.getLogger('dbrdemo')
-logger.setLevel(logging.DEBUG)
+from databricks.labs.blueprint.logger import install_logger as _install_logger
 
 from .foobar import create_foobar, write_foobar
 from .session import get_dbutils, get_spark
 from .version import __version__
 
-logger.info(f"Using dbrdemo version: {__version__}")
+logger = logging.getLogger(__name__)
+
+
+def install_logger() -> None:
+    """Install focused logging for dbrdemo.
+
+    Returns:
+        None.
+    """
+    _install_logger()
+    logging.getLogger().setLevel(logging.CRITICAL)
+    logger.setLevel(logging.DEBUG)
+    logger.info("Using dbrdemo version: %s", __version__)
 
 
 def __getattr__(name: str) -> Any:

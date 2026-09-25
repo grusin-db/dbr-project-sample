@@ -5,7 +5,9 @@ from collections.abc import Callable, Iterator
 import pytest
 from databricks.sdk import WorkspaceClient
 
-from dbrdemo import get_spark
+from dbrdemo import get_spark, install_logger
+
+install_logger()
 
 
 @pytest.fixture

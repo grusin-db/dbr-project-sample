@@ -66,9 +66,9 @@ Do not use the old `ucode` command; `ug` replaces it.
 Skills are `dbrdemo-*` folders under `skills/`. `make dist` copies them into
 the wheel.
 
-- `make install_workspace_skill`: preferred enterprise installation for all
+- `make install_workspace_skills`: preferred enterprise installation for all
   Genie Code users.
-- `make install_user_skill`: testing/troubleshooting only. User skills have
+- `make install_user_skills`: testing/troubleshooting only. User skills have
   lower priority and cannot override same-name workspace skills.
 - `make install_skills`: compatible local coding agents.
 

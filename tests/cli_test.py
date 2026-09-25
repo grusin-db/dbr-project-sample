@@ -64,8 +64,8 @@ def test_cli_docs(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture
     ("entrypoint", "installer_name", "destination"),
     [
         (cli.cli_install_skills, "install_skills", "~/.agents/skills"),
-        (cli.cli_install_user_skill, "install_user_skill", "your Databricks user skills folder"),
-        (cli.cli_install_workspace_skill, "install_workspace_skill", "the workspace skills folder"),
+        (cli.cli_install_user_skills, "install_user_skills", "your Databricks user skills folder"),
+        (cli.cli_install_workspace_skills, "install_workspace_skills", "the workspace skills folder"),
     ],
 )
 def test_skill_install_commands(
