@@ -29,4 +29,7 @@ make flint     # format, lint, and type-check
 
 Make targets use `.venv` directly; activation is not required.
 
+Open [`dbrdemo-example.ipynb`](../../dbrdemo-example.ipynb) to run the library
+from a local VS Code notebook through Databricks Connect.
+
 Windows users should use [WSL2](https://learn.microsoft.com/windows/wsl/install).

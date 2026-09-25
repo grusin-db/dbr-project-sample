@@ -15,6 +15,7 @@ def test_foobar_docs() -> None:
         "developer/README.md",
         "user/README.md",
         "user/foobar.md",
+        "user/local-notebook.md",
     }
 
     assert expected <= set(list_docs())

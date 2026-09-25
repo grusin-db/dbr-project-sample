@@ -65,7 +65,9 @@ dbrdemo-foobar --table main.demo.foobar --foo hello --bar world
 
 See the [foo/bar user guide](docs/user/foobar.md) for the
 [DataFrame API](https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/dataframe.html)
-and table behavior.
+and table behavior. The
+[local VS Code notebook guide](docs/user/local-notebook.md) explains how to run
+[`dbrdemo-example.ipynb`](dbrdemo-example.ipynb) through Databricks Connect.
 
 ## Documentation
 
